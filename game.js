@@ -38,6 +38,5 @@ function create() {
     });
     this.add.image(400, 250, 'sky');
     const player = this.add.sprite(100, 100, 'witch');
-    player.play('fly')
-
+    player.play('fly');
 }
