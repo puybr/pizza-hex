@@ -17,6 +17,7 @@ const config = {
 const game = new Phaser.Game(config);
 
 function preload () {
+    this.load.image('sky', 'assets/sky.png');
     this.load.spritesheet('witch', 
         'assets/witch.png',
         { frameWidth: 100, frameHeight: 100 }
@@ -25,6 +26,7 @@ function preload () {
 }
 
 function create () {
+    this.add.image(400, 250, 'sky');
     const player = this.add.sprite(100, 100, 'witch');
 
 }
