@@ -22,19 +22,37 @@ class GameScene extends Phaser.Scene {
             key: 'up',
             frameRate: 7,
             frames: this.anims.generateFrameNumbers('witch', {
-                start: 4,
+                start: 2,
                 end: 6
+            }),
+            repeat: 0
+        });
+        this.anims.create({
+            key: 'down',
+            frameRate: 12,
+            frames: this.anims.generateFrameNumbers('witch', {
+                start: 9,
+                end: 12
+            }),
+            repeat: 0
+        });
+        this.anims.create({
+            key: 'fly',
+            frameRate: 12,
+            frames: this.anims.generateFrameNumbers('witch', {
+                start: 1,
+                end: 3
             }),
             repeat: -1
         });
         this.anims.create({
-            key: 'down',
-            frameRate: 7,
+            key: 'ollie',
+            frameRate: 24,
             frames: this.anims.generateFrameNumbers('witch', {
-                start: 7,
-                end: 9
+                start: 13,
+                end: 24
             }),
-            repeat: -1
+            repeat: 0
         });
         this.add.image(400, 250, 'sky');
         this.player = this.add.sprite(100, 100, 'witch');
@@ -48,6 +66,9 @@ class GameScene extends Phaser.Scene {
         } else if (this.cursors.down.isDown && this.player.y < 450) {
             this.player.y += 4;
             this.player.anims.play('down', true);
+        } else if (this.cursors.space.isDown) {
+            this.player.anims.play('ollie', true);
+            
         };
 
     }
