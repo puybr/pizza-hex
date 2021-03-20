@@ -2,7 +2,8 @@ class TitleScene extends Phaser.Scene {
 
     constructor() {
         super({
-            key: 'titleScene'
+            key: 'titleScene',
+            active: true
         });
     }
 
