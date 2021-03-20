@@ -31,7 +31,7 @@ class GameScene extends Phaser.Scene {
             key: 'down',
             frameRate: 12,
             frames: this.anims.generateFrameNumbers('witch', {
-                start: 9,
+                start: 7,
                 end: 12
             }),
             repeat: 0
@@ -47,7 +47,7 @@ class GameScene extends Phaser.Scene {
         });
         this.anims.create({
             key: 'ollie',
-            frameRate: 24,
+            frameRate: 12,
             frames: this.anims.generateFrameNumbers('witch', {
                 start: 13,
                 end: 24
