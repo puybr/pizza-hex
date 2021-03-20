@@ -41,17 +41,20 @@ function create() {
         repeat: -1
     });
     this.add.image(400, 250, 'sky');
-    player = this.physics.add.sprite(100, 100, 'witch');
-    player.setBounce(0.2);
-    player.setCollideWorldBounds(true);
-    player.play('fly');
+    player = this.add.sprite(100, 100, 'witch');
+    // player.setBounce(0.2);
+    // player.setCollideWorldBounds(true);
+    // player.play('fly');
 }
 
 // Update Function
 function update() {
     cursors = this.input.keyboard.createCursorKeys();
     if (cursors.up.isDown) {
-        player.setVelocityY(-330);
+        player.y += -4;
+        player.anims.play('fly', true);
+    } else if (cursors.down.isDown) {
+        player.y += 4;
         player.anims.play('fly', true);
     };
 }
