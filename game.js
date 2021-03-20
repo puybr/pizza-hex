@@ -35,16 +35,19 @@ function preload() {
 // Create Function
 function create() {
     this.anims.create({
-        key: 'fly',
+        key: 'up',
         frameRate: 7,
-        frames: this.anims.generateFrameNumbers('witch', { start: 1, end: 6 }),
+        frames: this.anims.generateFrameNumbers('witch', { start: 4, end: 6 }),
+        repeat: -1
+    });
+    this.anims.create({
+        key: 'down',
+        frameRate: 7,
+        frames: this.anims.generateFrameNumbers('witch', { start: 7, end: 9 }),
         repeat: -1
     });
     this.add.image(400, 250, 'sky');
     player = this.add.sprite(100, 100, 'witch');
-    // player.setBounce(0.2);
-    // player.setCollideWorldBounds(true);
-    // player.play('fly');
 }
 
 // Update Function
@@ -52,9 +55,9 @@ function update() {
     cursors = this.input.keyboard.createCursorKeys();
     if (cursors.up.isDown) {
         player.y += -4;
-        player.anims.play('fly', true);
+        player.anims.play('up', true);
     } else if (cursors.down.isDown) {
         player.y += 4;
-        player.anims.play('fly', true);
+        player.anims.play('down', true);
     };
 }
