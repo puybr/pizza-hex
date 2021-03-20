@@ -46,6 +46,12 @@ function create() {
         frames: this.anims.generateFrameNumbers('witch', { start: 7, end: 9 }),
         repeat: -1
     });
+    this.anims.create({
+        key: 'ollie',
+        frameRate: 7,
+        frames: this.anims.generateFrameNumbers('witch', { start: 7, end: 9 }),
+        repeat: -1
+    });
     this.add.image(400, 250, 'sky');
     player = this.add.sprite(100, 100, 'witch');
 }
@@ -53,10 +59,10 @@ function create() {
 // Update Function
 function update() {
     cursors = this.input.keyboard.createCursorKeys();
-    if (cursors.up.isDown) {
+    if (cursors.up.isDown && player.y>50) {
         player.y += -4;
         player.anims.play('up', true);
-    } else if (cursors.down.isDown) {
+    } else if (cursors.down.isDown && player.y<450) {
         player.y += 4;
         player.anims.play('down', true);
     };
