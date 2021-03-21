@@ -14,7 +14,7 @@ class TitleScene extends Phaser.Scene {
     create() {
         // const bg = this.add.sprite(407, 184, 'title');
         // title.setOrigin(100, 100);
-        this.add.image(380, 240, 'title');
+        this.add.image(400, 250, 'title');
 
         const text = this.add.text(350, 350, 'Play Game!');
         text.setInteractive({useHandCursor: true});

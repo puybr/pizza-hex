@@ -7,6 +7,7 @@ class GameScene extends Phaser.Scene {
     preload() {
         this.load.image('sky', 'assets/sky.png');
         this.load.spritesheet('witch', 'assets/witch.png', {frameWidth: 200, frameHeight: 200});
+        this.load.spritesheet('ghost', 'assets/ghost.png', {frameWidth: 200, frameHeight: 200});
     }
 
     create() {
@@ -30,9 +31,17 @@ class GameScene extends Phaser.Scene {
             frameRate: 6,
             frames: this.anims.generateFrameNumbers('witch', {start: 1, end: 3}),repeat: -1
         });
+        this.anims.create({
+            key: 'spook',
+            frameRate: 2,
+            frames: this.anims.generateFrameNumbers('ghost', {start: 1, end: 2}),repeat: -1
+        });
         this.add.image(400, 250, 'sky');
+        
         this.player = this.add.sprite(100, 100, 'witch');
         this.player.anims.play('fly');
+        this.ghost =  this.add.sprite(400, 200, 'ghost');
+        // this.ghost.anims.play('spook');
     }
 
     update() {
