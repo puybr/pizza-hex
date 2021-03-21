@@ -9,14 +9,12 @@ class TitleScene extends Phaser.Scene {
 
     preload() {
         this.load.image('title', 'assets/title.png');
+        this.load.image('start', 'assets/start.png');
     }
 
     create() {
-        // const bg = this.add.sprite(407, 184, 'title');
-        // title.setOrigin(100, 100);
-        this.add.image(400, 250, 'title');
-
-        const text = this.add.text(350, 350, 'Play Game!');
+        this.add.image(390, 250, 'title');
+        const text = this.add.image(400, 350, 'start');
         text.setInteractive({useHandCursor: true});
         text.on('pointerdown', () => this.clickButton());
     }
