@@ -33,8 +33,8 @@ class GameScene extends Phaser.Scene {
         });
         this.anims.create({
             key: 'spook',
-            frameRate: 2,
-            frames: this.anims.generateFrameNumbers('ghost', {start: 1, end: 2}),repeat: -1
+            frameRate: 3,
+            frames: this.anims.generateFrameNumbers('ghost', {start: 1, end: 4}),repeat: -1
         });
         this.add.image(400, 250, 'sky');
         
