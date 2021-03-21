@@ -8,14 +8,15 @@ class TitleScene extends Phaser.Scene {
     }
 
     preload() {
-        // this.load.image('background', 'assets/sky.png');
+        this.load.image('title', 'assets/title.png');
     }
 
     create() {
-        // const bg = this.add.sprite(0, 0, 'background');
-        // bg.setOrigin(0, 0);
+        // const bg = this.add.sprite(407, 184, 'title');
+        // title.setOrigin(100, 100);
+        this.add.image(380, 240, 'title');
 
-        const text = this.add.text(350, 250, 'Play Game!');
+        const text = this.add.text(350, 350, 'Play Game!');
         text.setInteractive({useHandCursor: true});
         text.on('pointerdown', () => this.clickButton());
     }
