@@ -29,16 +29,16 @@ class GameScene extends Phaser.Scene {
         this.anims.create({
             key: 'fly',
             frameRate: 6,
-            frames: this.anims.generateFrameNumbers('witch', {start: 1, end: 3}),repeat: -1
+            frames: this.anims.generateFrameNumbers('witch', {start: 0, end: 3}),repeat: -1
         });
         this.anims.create({
             key: 'spook',
             frameRate: 3,
-            frames: this.anims.generateFrameNumbers('ghost', {start: 1, end: 4}),repeat: -1
+            frames: this.anims.generateFrameNumbers('ghost', {start: 0, end: 3}),repeat: -1
         });
         this.add.image(400, 250, 'sky');
         
-        this.player = this.add.sprite(100, 100, 'witch');
+        this.player = this.add.sprite(150, 100, 'witch');
         this.player.anims.play('fly');
         this.ghost =  this.add.sprite(400, 200, 'ghost');
         this.ghost.anims.play('spook');
