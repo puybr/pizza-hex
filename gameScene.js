@@ -41,7 +41,7 @@ class GameScene extends Phaser.Scene {
         this.player = this.add.sprite(100, 100, 'witch');
         this.player.anims.play('fly');
         this.ghost =  this.add.sprite(400, 200, 'ghost');
-        // this.ghost.anims.play('spook');
+        this.ghost.anims.play('spook');
     }
 
     update() {
