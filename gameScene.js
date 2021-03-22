@@ -41,8 +41,8 @@ class GameScene extends Phaser.Scene {
         this.player = this.add.sprite(150, 100, 'witch');
         this.player.setDepth(1);
         this.player.play('fly');
-        // this.ghost =  this.add.sprite(400, 200, 'ghost');
-        // this.ghost.anims.play('spook');
+
+        // Ghost Object Pool
         this.ghostGroup = this.add.group({
             defaultKey: 'ghost',
             maxSize: 100,
@@ -54,15 +54,19 @@ class GameScene extends Phaser.Scene {
             delay: 500,
             loop: true,
             callback: () => {
-                const x = Phaser.Math.Between(0, 800);
-                const y = Phaser.Math.Between(0, 500);
+                const x = Phaser.Math.Between(800, 900);
+                const y = Phaser.Math.Between(50, 450);
                 const ghost = this.ghostGroup.get(x, y);
-                ghost.anims.play('spook');
+                ghost
+                    .setActive(true)
+                    .setVisible(true)
+                    .play('spook');
             }
         });
     }
 
     update() {
+        Phaser.Actions.IncX(this.ghostGroup.getChildren(), -1);
         this.cursors = this.input.keyboard.createCursorKeys();
         if (this.cursors.up.isDown && this.player.y > 50) {
             this.player.y += -4;
