@@ -43,7 +43,6 @@ class GameScene extends Phaser.Scene {
         this.player.play('fly');
         // this.ghost =  this.add.sprite(400, 200, 'ghost');
         // this.ghost.anims.play('spook');
-
         this.ghostGroup = this.add.group({
             defaultKey: 'ghost',
             maxSize: 100,
@@ -58,6 +57,7 @@ class GameScene extends Phaser.Scene {
                 const x = Phaser.Math.Between(0, 800);
                 const y = Phaser.Math.Between(0, 500);
                 const ghost = this.ghostGroup.get(x, y);
+                ghost.anims.play('spook');
             }
         });
     }
