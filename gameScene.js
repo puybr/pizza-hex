@@ -66,7 +66,12 @@ class GameScene extends Phaser.Scene {
     }
 
     update() {
-        Phaser.Actions.IncX(this.ghostGroup.getChildren(), -1);
+        Phaser.Actions.IncX(this.ghostGroup.getChildren(), -3);
+        this.ghostGroup.getChildren().forEach(ghost => {
+            if (ghost.active && ghost.x < -100) {
+                this.ghostGroup.killAndHide(ghost);
+            }
+        });
         this.cursors = this.input.keyboard.createCursorKeys();
         if (this.cursors.up.isDown && this.player.y > 50) {
             this.player.y += -4;
