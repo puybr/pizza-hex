@@ -39,9 +39,27 @@ class GameScene extends Phaser.Scene {
         this.add.image(400, 250, 'sky');
         
         this.player = this.add.sprite(150, 100, 'witch');
-        this.player.anims.play('fly');
-        this.ghost =  this.add.sprite(400, 200, 'ghost');
-        this.ghost.anims.play('spook');
+        this.player.setDepth(1);
+        this.player.play('fly');
+        // this.ghost =  this.add.sprite(400, 200, 'ghost');
+        // this.ghost.anims.play('spook');
+
+        this.ghostGroup = this.add.group({
+            defaultKey: 'ghost',
+            maxSize: 100,
+            visible: false,
+            active: false
+        });
+
+        this.time.addEvent({
+            delay: 500,
+            loop: true,
+            callback: () => {
+                const x = Phaser.Math.Between(0, 800);
+                const y = Phaser.Math.Between(0, 500);
+                const ghost = this.ghostGroup.get(x, y);
+            }
+        });
     }
 
     update() {
@@ -54,9 +72,11 @@ class GameScene extends Phaser.Scene {
             this.player.anims.play('down', true);
         } else if (this.cursors.space.isDown) {
             this.player.anims.play('ollie', true);             
-        }
+        };
+        
 
     }
+    
 }
 
 export default GameScene;
