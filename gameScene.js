@@ -38,7 +38,7 @@ class GameScene extends Phaser.Scene {
         });
         this.add.image(400, 250, 'sky');
         
-        this.player = this.add.sprite(150, 100, 'witch');
+        this.player = this.add.sprite(150, 250, 'witch');
         this.player.setDepth(1);
         this.player.play('fly');
 
