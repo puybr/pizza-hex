@@ -5,7 +5,7 @@ class GameScene extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image('sky', 'assets/sky2.png');
+        this.load.image('sky', 'assets/sky.png');
         this.load.spritesheet('witch', 'assets/witch.png', {frameWidth: 200, frameHeight: 200});
         this.load.spritesheet('ghost', 'assets/ghost.png', {frameWidth: 200, frameHeight: 200});
     }
