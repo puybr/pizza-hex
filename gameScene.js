@@ -106,7 +106,6 @@ class GameScene extends Phaser.Scene {
 
     fire() {
         let slice = this.pizza.get();
-        let ghost = this.ghostGroup.get();
         slice.setPosition(this.player.x, this.player.y);
         slice.setActive(true);
         slice.setVisible(true);       
