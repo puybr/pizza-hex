@@ -38,10 +38,7 @@ class GameScene extends Phaser.Scene {
             frames: this.anims.generateFrameNumbers('ghost', {start: 0, end: 3}),repeat: -1
         });
         this.add.image(400, 250, 'sky');
-        
-        this.player = this.add.sprite(150, 250, 'witch');
-        this.player.setDepth(1);
-        this.player.play('fly');
+    
 
         // 👻 Ghost Object Pool
         this.ghostGroup = this.add.group({
@@ -67,12 +64,39 @@ class GameScene extends Phaser.Scene {
 
         // 🍕 Add some pizza ...
         
-        this.pizza = this.add.group({
-            defaultKey: 'pizza',
-            maxSize: 100,
-            visible: false,
-            active: false
+        let Spell = new Phaser.Class({
+            Extends: Phaser.GameObjects.Image,    
+            initialize: 
+            function Bullet (scene) {
+                Phaser.GameObjects.Image.call(this, scene, 0, 0, 'pizza');    
+                this.speed = Phaser.Math.GetSpeed(400, 1);
+            },
+    
+            fire: function (x, y) {
+                this.setPosition(x, y); 
+                this.setActive(true);
+                this.setVisible(true);
+            },
+    
+            update: function (time, delta) {
+                this.x += this.speed * delta;  
+                if (this.x > 800) {
+                    this.setActive(false);
+                    this.setVisible(false);
+                }
+            }
+    
         });
+    
+        this.pizza = this.add.group({
+            classType: Spell,
+            maxSize: 10,
+            runChildUpdate: true
+        });
+    
+        this.witch = this.add.sprite(160, 250, 'witch').setDepth(1);
+        this.witch.play('fly'); 
+        this.speed = Phaser.Math.GetSpeed(200, 1);
 
     }
 
@@ -83,33 +107,23 @@ class GameScene extends Phaser.Scene {
                 this.ghostGroup.killAndHide(ghost);
             }
         });
-        Phaser.Actions.IncX(this.pizza.getChildren(), 3);
-        this.pizza.getChildren().forEach(slice => {
-            if (slice.active && slice.x > 850) {
-                this.pizza.killAndHide(slice);
-            }
-        });
         this.cursors = this.input.keyboard.createCursorKeys();
-        if (this.cursors.up.isDown && this.player.y > 50) {
-            this.player.y += -4;
-            this.player.anims.play('up', true);
-        } else if (this.cursors.down.isDown && this.player.y < 450) {
-            this.player.y += 4;
-            this.player.anims.play('down', true);
+        let lastFired = 0;
+        if (this.cursors.up.isDown && this.witch.y > 50) {
+            this.witch.y += -4;
+            this.witch.anims.play('up', true);
+        } else if (this.cursors.down.isDown && this.witch.y < 450) {
+            this.witch.y += 4;
+            this.witch.anims.play('down', true);
         } else if (this.cursors.space.isDown) {
-            this.player.anims.play('fire', true);  
-            this.fire();     
+            this.witch.anims.play('fire', true);  
+            let slice = this.pizza.get();
+            if (slice) {
+                slice.fire(this.witch.x, this.witch.y);
+                lastFired = this.time + 50;
+            }    
         };
-
-      
-    }
-
-    fire() {
-        let slice = this.pizza.get();
-        slice.setPosition(this.player.x, this.player.y);
-        slice.setActive(true);
-        slice.setVisible(true);       
-        
+     
     }
     
 }
