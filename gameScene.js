@@ -42,7 +42,7 @@ class GameScene extends Phaser.Scene {
             frames: this.anims.generateFrameNumbers('ghost', {start: 0, end: 3}),repeat: -1
         });
         this.anims.create({
-            key: 'fire',
+            key: 'conjure',
             frameRate: 3,
             frames: this.anims.generateFrameNumbers('pizza', {start: 0, end: 3}),repeat: -1
         });
@@ -76,16 +76,17 @@ class GameScene extends Phaser.Scene {
         let Spell = new Phaser.Class({
             Extends: Phaser.GameObjects.Image,    
             initialize: 
-            function Bullet (scene) {
+            function Spell (scene) {
                 Phaser.GameObjects.Image.call(this, scene, 0, 0, 'pizza');    
                 this.speed = Phaser.Math.GetSpeed(400, 1);
-                // this.pizza.play('fire');
+            
             },
     
             fire: function (x, y) {
                 this.setPosition(x, y); 
                 this.setActive(true);
                 this.setVisible(true);
+            
             },
     
             update: function (time, delta) {
@@ -98,6 +99,7 @@ class GameScene extends Phaser.Scene {
             }
     
         });
+        
     
         this.pizza = this.add.group({
             classType: Spell,
@@ -105,7 +107,9 @@ class GameScene extends Phaser.Scene {
             runChildUpdate: true
         });
 
-    
+
+
+        // Add the witch
         this.witch = this.add.sprite(160, 250, 'witch').setDepth(1);
         this.witch.play('fly');      
         this.speed = Phaser.Math.GetSpeed(200, 1);
