@@ -6,12 +6,16 @@ class GameScene extends Phaser.Scene {
 
     preload() {
         this.load.image('sky', 'assets/sky.png');
-        this.load.image('pizza', 'assets/pizza.png');
+        this.load.spritesheet('pizza', 'assets/pizza.png', {frameWidth: 50, frameHeight: 50});
         this.load.spritesheet('witch', 'assets/witch.png', {frameWidth: 200, frameHeight: 200});
         this.load.spritesheet('ghost', 'assets/ghost.png', {frameWidth: 200, frameHeight: 200});
     }
 
     create() {
+
+        this.add.image(400, 250, 'sky');
+
+
         this.anims.create({
             key: 'up',
             frameRate: 7,
@@ -37,7 +41,12 @@ class GameScene extends Phaser.Scene {
             frameRate: 3,
             frames: this.anims.generateFrameNumbers('ghost', {start: 0, end: 3}),repeat: -1
         });
-        this.add.image(400, 250, 'sky');
+        this.anims.create({
+            key: 'fire',
+            frameRate: 3,
+            frames: this.anims.generateFrameNumbers('pizza', {start: 0, end: 3}),repeat: -1
+        });
+
     
 
         // 👻 Ghost Object Pool
@@ -59,17 +68,18 @@ class GameScene extends Phaser.Scene {
                     .setActive(true)
                     .setVisible(true)
                     .play('spook');
+
             }
         });
 
-        // 🍕 Add some pizza ...
-        
+        // 🍕 Add some pizza ...       
         let Spell = new Phaser.Class({
             Extends: Phaser.GameObjects.Image,    
             initialize: 
             function Bullet (scene) {
                 Phaser.GameObjects.Image.call(this, scene, 0, 0, 'pizza');    
                 this.speed = Phaser.Math.GetSpeed(400, 1);
+                // this.pizza.play('fire');
             },
     
             fire: function (x, y) {
@@ -84,18 +94,20 @@ class GameScene extends Phaser.Scene {
                     this.setActive(false);
                     this.setVisible(false);
                 }
+                
             }
     
         });
     
         this.pizza = this.add.group({
             classType: Spell,
-            maxSize: 10,
+            maxSize: 50,
             runChildUpdate: true
         });
+
     
         this.witch = this.add.sprite(160, 250, 'witch').setDepth(1);
-        this.witch.play('fly'); 
+        this.witch.play('fly');      
         this.speed = Phaser.Math.GetSpeed(200, 1);
 
     }
@@ -107,6 +119,7 @@ class GameScene extends Phaser.Scene {
                 this.ghostGroup.killAndHide(ghost);
             }
         });
+        
         this.cursors = this.input.keyboard.createCursorKeys();
         let lastFired = 0;
         if (this.cursors.up.isDown && this.witch.y > 50) {
@@ -116,11 +129,12 @@ class GameScene extends Phaser.Scene {
             this.witch.y += 4;
             this.witch.anims.play('down', true);
         } else if (this.cursors.space.isDown) {
-            this.witch.anims.play('fire', true);  
+            this.witch.anims.play('fire', true); 
             let slice = this.pizza.get();
             if (slice) {
                 slice.fire(this.witch.x, this.witch.y);
-                lastFired = this.time + 50;
+                lastFired = this.time + 100;
+        
             }    
         };
      
