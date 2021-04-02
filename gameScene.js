@@ -129,17 +129,19 @@ class GameScene extends Phaser.Scene {
         if (this.cursors.up.isDown && this.witch.y > 50) {
             this.witch.y += -4;
             this.witch.anims.play('up', true);
-        } else if (this.cursors.down.isDown && this.witch.y < 450) {
+        }
+        if (this.cursors.down.isDown && this.witch.y < 450) {
             this.witch.y += 4;
             this.witch.anims.play('down', true);
-        } else if (this.cursors.space.isDown) {
+        }
+        if (this.cursors.space.isDown) {
             this.witch.anims.play('fire', true); 
             let slice = this.pizza.get();
             if (slice) {
                 slice.fire(this.witch.x, this.witch.y);
                 lastFired = this.time + 100;
         
-            }    
+            }          
         };
      
     }
