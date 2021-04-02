@@ -6,6 +6,7 @@ class GameScene extends Phaser.Scene {
 
     preload() {
         this.load.image('sky', 'assets/sky.png');
+        this.load.image('pizza', 'assets/pizza.png');
         this.load.spritesheet('witch', 'assets/witch.png', {frameWidth: 200, frameHeight: 200});
         this.load.spritesheet('ghost', 'assets/ghost.png', {frameWidth: 200, frameHeight: 200});
     }
@@ -22,7 +23,7 @@ class GameScene extends Phaser.Scene {
             frames: this.anims.generateFrameNumbers('witch', {start: 7, end: 12}), repeat: 0
         });
         this.anims.create({
-            key: 'ollie',
+            key: 'fire',
             frameRate: 12,
             frames: this.anims.generateFrameNumbers('witch', {start: 13, end: 30}),repeat: 0
         });
@@ -42,7 +43,7 @@ class GameScene extends Phaser.Scene {
         this.player.setDepth(1);
         this.player.play('fly');
 
-        // Ghost Object Pool
+        // 👻 Ghost Object Pool
         this.ghostGroup = this.add.group({
             defaultKey: 'ghost',
             maxSize: 100,
@@ -63,6 +64,16 @@ class GameScene extends Phaser.Scene {
                     .play('spook');
             }
         });
+
+        // 🍕 Add some pizza ...
+        
+        this.pizza = this.add.group({
+            defaultKey: 'pizza',
+            maxSize: 100,
+            visible: false,
+            active: false
+        });
+
     }
 
     update() {
@@ -70,6 +81,12 @@ class GameScene extends Phaser.Scene {
         this.ghostGroup.getChildren().forEach(ghost => {
             if (ghost.active && ghost.x < -100) {
                 this.ghostGroup.killAndHide(ghost);
+            }
+        });
+        Phaser.Actions.IncX(this.pizza.getChildren(), 3);
+        this.pizza.getChildren().forEach(slice => {
+            if (slice.active && slice.x > 850) {
+                this.pizza.killAndHide(slice);
             }
         });
         this.cursors = this.input.keyboard.createCursorKeys();
@@ -80,10 +97,20 @@ class GameScene extends Phaser.Scene {
             this.player.y += 4;
             this.player.anims.play('down', true);
         } else if (this.cursors.space.isDown) {
-            this.player.anims.play('ollie', true);             
+            this.player.anims.play('fire', true);  
+            this.fire();     
         };
-        
 
+      
+    }
+
+    fire() {
+        let slice = this.pizza.get();
+        let ghost = this.ghostGroup.get();
+        slice.setPosition(this.player.x, this.player.y);
+        slice.setActive(true);
+        slice.setVisible(true);       
+        
     }
     
 }
