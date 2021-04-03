@@ -60,7 +60,7 @@ class GameScene extends Phaser.Scene {
 
 
         this.time.addEvent({
-            delay: 500,
+            delay: 300,
             loop: true,
             callback: () => {
                 const x = Phaser.Math.Between(800, 900);
@@ -112,7 +112,7 @@ class GameScene extends Phaser.Scene {
             runChildUpdate: true
         });
 
-        // Add the witch
+        // 🧙‍♀️ Add the witch
         this.witch = this.physics.add.sprite(160, 250, 'witch').setDepth(1);
         this.witch.body.setSize(100, 100, true);
         this.physics.world.enable(this.witch);
@@ -122,16 +122,14 @@ class GameScene extends Phaser.Scene {
 
 
 
-        // Collision
-        this.physics.add.collider(
-            this.pizza,
-            this.ghostGroup,
-            function (pizza, ghostGroup) {
-                ghostGroup.setAlpha(0);
-                pizza.setAlpha(0);
-                ghostGroup.destroy();
+        // 🍕👻 Collision
+        this.physics.add.collider(this.pizza, this.ghostGroup, function (pizza, ghostGroup) {    
                 pizza.destroy();
+                ghostGroup.destroy();  
+                                       
             });
+
+            
         
         
         }
