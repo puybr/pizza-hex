@@ -11,6 +11,12 @@ const config = {
   type: Phaser.AUTO,
   width: 800,
   height: 500,
+  physics: {
+    default: 'arcade',
+    arcade: {
+        debug: true
+    }
+},
 };
 
 const game = new Phaser.Game(config);
