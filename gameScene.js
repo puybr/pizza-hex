@@ -71,6 +71,8 @@ class GameScene extends Phaser.Scene {
                     .setVisible(true)
                     .play('spook')
                     .body.setSize(100, 60, true);
+    
+                    
 
             }
         });
@@ -123,15 +125,21 @@ class GameScene extends Phaser.Scene {
 
 
         // 🍕👻 Collision
-        this.physics.add.collider(this.pizza, this.ghostGroup, function (pizza, ghostGroup) {    
+        this.physics.add.collider(this.pizza, this.ghostGroup, (pizza, ghost) => {    
                 pizza.destroy();
-                ghostGroup.destroy();  
+                ghost.destroy();  
                                        
             });
 
-            
-        
-        
+
+        // 🧙‍♀️👻 Collision   
+        this.physics.add.collider(this.witch, this.ghostGroup, () => {  
+            // console.log('End Game!');
+            this.scene.restart('titleScene'); // restart current scene
+                                    
+        });
+
+                   
         }
 
     update() {
