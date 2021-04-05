@@ -46,6 +46,7 @@ class GameScene extends Phaser.Scene {
             frameRate: 3,
             frames: this.anims.generateFrameNumbers('pizza', {start: 1, end: 3}),repeat: -1
         });
+
   
 
     
@@ -101,6 +102,7 @@ class GameScene extends Phaser.Scene {
                     this.setActive(false);
                     this.setVisible(false);
                     this.destroy();
+                    
                 }
                 
             }
@@ -116,31 +118,36 @@ class GameScene extends Phaser.Scene {
 
         // 🧙‍♀️ Add the witch
         this.witch = this.physics.add.sprite(160, 250, 'witch').setDepth(1);
-        this.witch.body.setSize(100, 100, true);
+        this.witch.body.setSize(70, 80, true);
         this.physics.world.enable(this.witch);
         this.witch.play('fly');      
         this.speed = Phaser.Math.GetSpeed(200, 1);
 
-
-
-
-        // 🍕👻 Collision
-        this.physics.add.collider(this.pizza, this.ghostGroup, (pizza, ghost) => {    
-                pizza.destroy();
-                ghost.destroy();  
-                                       
-            });
+    
 
 
         // 🧙‍♀️👻 Collision   
-        this.physics.add.collider(this.witch, this.ghostGroup, () => {  
-            // console.log('End Game!');
-            this.scene.restart('titleScene'); // restart current scene
-                                    
+        this.physics.add.collider(this.witch, this.ghostGroup, (witch, ghost) => {
+            const ko = this.add.text(400, 250, 'You Died', { color: 'red', fontSize: 32 }).setOrigin(0.5, 0);
+            ko.setInteractive({useHandCursor: true});
+            this.witch.destroy();
+            ko.on('pointerdown', () => this.scene.restart());
+
+        });
+             
+
+        // 🍕👻 Collision
+        this.physics.add.collider(this.pizza, this.ghostGroup, (pizza, ghost) => {              
+            ghost.destroy();
+            pizza.destroy();
+                                   
         });
 
                    
         }
+
+
+
 
     update() {
         Phaser.Actions.IncX(this.ghostGroup.getChildren(), -3);
@@ -153,6 +160,7 @@ class GameScene extends Phaser.Scene {
         
         this.cursors = this.input.keyboard.createCursorKeys();
         let lastFired = 0;
+    
         if (this.cursors.up.isDown && this.witch.y > 50) {
             this.witch.y += -4;
             this.witch.anims.play('up', true);
@@ -171,6 +179,7 @@ class GameScene extends Phaser.Scene {
         
             }          
         };
+
      
     }
     
