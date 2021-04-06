@@ -12,7 +12,8 @@ class GameScene extends Phaser.Scene {
     }
 
     create() {
-
+        this.gameOver = false;
+        this.cursors = this.input.keyboard.createCursorKeys();
         this.add.image(400, 250, 'sky');
 
 
@@ -46,11 +47,6 @@ class GameScene extends Phaser.Scene {
             frameRate: 3,
             frames: this.anims.generateFrameNumbers('pizza', {start: 1, end: 3}),repeat: -1
         });
-
-  
-
-    
-
         // 👻 Ghost Object Pool
         this.ghostGroup = this.physics.add.group({
             defaultKey: 'ghost',
@@ -58,12 +54,16 @@ class GameScene extends Phaser.Scene {
             visible: false,
             active: false
         });
+        
 
 
         this.time.addEvent({
             delay: 300,
             loop: true,
             callback: () => {
+                if (this.gameOver) {
+                    return;
+                }
                 const x = Phaser.Math.Between(800, 900);
                 const y = Phaser.Math.Between(50, 450);
                 const ghost = this.ghostGroup.get(x, y);
@@ -71,21 +71,18 @@ class GameScene extends Phaser.Scene {
                     .setActive(true)
                     .setVisible(true)
                     .play('spook')
-                    .body.setSize(100, 60, true);
-    
-                    
-
+                    .body.setSize(100, 60, true);     
             }
         });
 
         // 🍕 Add some pizza ...       
         let Spell = new Phaser.Class({
-            Extends: Phaser.GameObjects.Image,    
+            Extends: Phaser.GameObjects.Sprite,    
             initialize: 
             function Spell (scene) {
-                Phaser.GameObjects.Image.call(this, scene, 0, 0, 'pizza');    
+                this.pizza = Phaser.GameObjects.Sprite.call(this, scene, 0, 0, 'pizza');  
                 this.speed = Phaser.Math.GetSpeed(400, 1);
-            
+                this.anims.play('spell');
             },
     
             fire: function (x, y) {
@@ -93,7 +90,6 @@ class GameScene extends Phaser.Scene {
                 this.setActive(true);
                 this.setVisible(true);
                 this.body.setSize(20, 20, true);
-            
             },
     
             update: function (time, delta) {
@@ -105,12 +101,16 @@ class GameScene extends Phaser.Scene {
                     
                 }
                 
+            }, 
+
+            des: function() {
+                this.destroy();
             }
     
         });
-        
     
-        this.pizza = this.physics.add.group({
+        this.pizzaGroup = this.physics.add.group({
+            defaultKey: 'pizza',
             classType: Spell,
             maxSize: 50,
             runChildUpdate: true
@@ -121,60 +121,66 @@ class GameScene extends Phaser.Scene {
         this.witch.body.setSize(70, 80, true);
         this.physics.world.enable(this.witch);
         this.witch.play('fly');      
+
         this.speed = Phaser.Math.GetSpeed(200, 1);
-
-    
-
 
         // 🧙‍♀️👻 Collision   
         this.physics.add.collider(this.witch, this.ghostGroup, (witch, ghost) => {
             const ko = this.add.text(400, 250, 'You Died', { color: 'red', fontSize: 32 }).setOrigin(0.5, 0);
             ko.setInteractive({useHandCursor: true});
             this.witch.destroy();
+            this.gameOver = true;
+            if (this.cursors.space.isDown) {
+                this.scene.restart();
+                this.gameOver = false;
+            }
             ko.on('pointerdown', () => this.scene.restart());
 
         });
-             
-
-        // 🍕👻 Collision
-        this.physics.add.collider(this.pizza, this.ghostGroup, (pizza, ghost) => {              
-            ghost.destroy();
-            pizza.destroy();
-                                   
-        });
-
                    
-        }
+        }// end create
 
 
 
 
     update() {
+        if(this.gameOver)
+        {
+            return;
+        }
         Phaser.Actions.IncX(this.ghostGroup.getChildren(), -3);
         this.ghostGroup.getChildren().forEach(ghost => {
             if (ghost.active && ghost.x < -100) {
                 this.ghostGroup.killAndHide(ghost);
             }
         });
-
-        
-        this.cursors = this.input.keyboard.createCursorKeys();
+      
+       
         let lastFired = 0;
     
         if (this.cursors.up.isDown && this.witch.y > 50) {
             this.witch.y += -4;
-            this.witch.anims.play('up', true);
+            this.witch.play('up', true);
         }
         if (this.cursors.down.isDown && this.witch.y < 450) {
             this.witch.y += 4;
-            this.witch.anims.play('down', true);
+            this.witch.play('down', true);
         }
         if (this.cursors.space.isDown) {
-            this.witch.anims.play('fire', true); 
-            const slice = this.pizza.get();
-     
+            this.witch.play('fire', true); 
+            const slice = this.pizzaGroup.get(this.witch.x, this.witch.y);
+
             if (slice) {
+                slice.add
                 slice.fire(this.witch.x, this.witch.y);
+                // slice.anims.play('spell');
+                this.physics.add.collider(this.ghostGroup, slice, (enemyHit, bulletHit) =>
+                {
+                    console.log("Enemy hit !!!!");
+                    enemyHit.setActive(false).setVisible(false);
+                    // Destroy bullet
+                    bulletHit.setActive(false).setVisible(false);
+                });
                 lastFired = this.time + 100;
         
             }          
@@ -182,7 +188,6 @@ class GameScene extends Phaser.Scene {
 
      
     }
-    
 }
 
 export default GameScene;
