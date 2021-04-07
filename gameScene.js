@@ -20,22 +20,22 @@ class GameScene extends Phaser.Scene {
         this.anims.create({
             key: 'up',
             frameRate: 7,
-            frames: this.anims.generateFrameNumbers('witch', {start: 2, end: 6}), repeat: 0
+            frames: this.anims.generateFrameNumbers('witch', {start: 16, end: 23}), repeat: 0
         });
         this.anims.create({
             key: 'down',
             frameRate: 12,
-            frames: this.anims.generateFrameNumbers('witch', {start: 7, end: 12}), repeat: 0
+            frames: this.anims.generateFrameNumbers('witch', {start: 0, end: 7}), repeat: 0
         });
         this.anims.create({
             key: 'fire',
             frameRate: 12,
-            frames: this.anims.generateFrameNumbers('witch', {start: 13, end: 30}),repeat: 0
+            frames: this.anims.generateFrameNumbers('witch', {start: 24, end: 29}),repeat: 0
         });
         this.anims.create({
             key: 'fly',
             frameRate: 6,
-            frames: this.anims.generateFrameNumbers('witch', {start: 1, end: 3}),repeat: -1
+            frames: this.anims.generateFrameNumbers('witch', {start: 8, end: 15}),repeat: -1
         });
         this.anims.create({
             key: 'spook',
@@ -102,10 +102,6 @@ class GameScene extends Phaser.Scene {
                 }
                 
             }, 
-
-            des: function() {
-                this.destroy();
-            }
     
         });
     
