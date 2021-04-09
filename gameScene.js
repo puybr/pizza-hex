@@ -9,12 +9,16 @@ class GameScene extends Phaser.Scene {
         this.load.spritesheet('pizza', 'assets/pizza.png', {frameWidth: 50, frameHeight: 50});
         this.load.spritesheet('witch', 'assets/witch.png', {frameWidth: 200, frameHeight: 200});
         this.load.spritesheet('ghost', 'assets/ghost.png', {frameWidth: 150, frameHeight: 150});
+        this.load.audio("theme-music", ["assets/dambient__8-bit-loop-halloween-walz-creepy-walz.mp3"]);
     }
 
     create() {
         this.gameOver = false;
         this.cursors = this.input.keyboard.createCursorKeys();
         this.cameras.main.backgroundColor = Phaser.Display.Color.HexStringToColor("#3498db");
+        const themeMusic = this.sound.add("theme-music", { loop: false });
+        themeMusic.play();
+
 
         this.anims.create({
             key: 'up',
@@ -123,6 +127,7 @@ class GameScene extends Phaser.Scene {
             this.gameOver = true;
             const ko = this.add.text(400, 250, 'You Died', { color: '#00FF00', fontSize: 32 }).setOrigin(0.5, 0);
             ko.setInteractive({useHandCursor: true});
+            themeMusic.pause();
             ko.on('pointerdown', () => this.scene.restart());
             if (this.cursors.space.isDown) {
                 this.scene.restart();
