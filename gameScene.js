@@ -14,8 +14,7 @@ class GameScene extends Phaser.Scene {
     create() {
         this.gameOver = false;
         this.cursors = this.input.keyboard.createCursorKeys();
-        // this.stage.backgroundColor = "#4488AA";
-
+        this.cameras.main.backgroundColor = Phaser.Display.Color.HexStringToColor("#3498db");
 
         this.anims.create({
             key: 'up',
@@ -173,9 +172,9 @@ class GameScene extends Phaser.Scene {
                 this.physics.add.collider(this.ghostGroup, slice, (enemyHit, bulletHit) =>
                 {
                     console.log("Enemy hit !!!!");
-                    enemyHit.setActive(false).setVisible(false);
+                    enemyHit.setActive(false).setVisible(false).destroy();
                     // Destroy bullet
-                    bulletHit.setActive(false).setVisible(false);
+                    bulletHit.setActive(false).setVisible(false).destroy();
                 });
                 lastFired = this.time + 100;
         
