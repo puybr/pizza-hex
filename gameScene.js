@@ -9,15 +9,15 @@ class GameScene extends Phaser.Scene {
         this.load.spritesheet('pizza', 'assets/pizza.png', {frameWidth: 50, frameHeight: 50});
         this.load.spritesheet('witch', 'assets/witch.png', {frameWidth: 200, frameHeight: 200});
         this.load.spritesheet('ghost', 'assets/ghost.png', {frameWidth: 150, frameHeight: 150});
-        this.load.audio("theme-music", ["assets/dambient__8-bit-loop-halloween-walz-creepy-walz.mp3"]);
+        this.load.audio("spell-audio", ["assets/8-bit-error.wav"]);
     }
 
     create() {
         this.gameOver = false;
         this.cursors = this.input.keyboard.createCursorKeys();
         this.cameras.main.backgroundColor = Phaser.Display.Color.HexStringToColor("#3498db");
-        const themeMusic = this.sound.add("theme-music", { loop: false });
-        themeMusic.play();
+        // const themeMusic = this.sound.add("theme-music", { loop: true });
+        // themeMusic.play();
 
 
         this.anims.create({
@@ -84,7 +84,7 @@ class GameScene extends Phaser.Scene {
             initialize: 
             function Spell (scene) {
                 this.pizza = Phaser.GameObjects.Sprite.call(this, scene, 0, 0, 'pizza');  
-                this.speed = Phaser.Math.GetSpeed(400, 1);
+                this.speed = Phaser.Math.GetSpeed(500, 1);
                 this.anims.play('spell');
             },
     
@@ -127,7 +127,7 @@ class GameScene extends Phaser.Scene {
             this.gameOver = true;
             const ko = this.add.text(400, 250, 'You Died', { color: '#00FF00', fontSize: 32 }).setOrigin(0.5, 0);
             ko.setInteractive({useHandCursor: true});
-            themeMusic.pause();
+            // themeMusic.pause();
             ko.on('pointerdown', () => this.scene.restart());
             if (this.cursors.space.isDown) {
                 this.scene.restart();
@@ -173,15 +173,16 @@ class GameScene extends Phaser.Scene {
             if (slice) {
                 slice.add
                 slice.fire(this.witch.x, this.witch.y);
-
-                this.physics.add.collider(this.ghostGroup, slice, (enemyHit, bulletHit) =>
+                this.sound.add("spell-audio", { loop: false }).play();
+                // lastFired = this.time + 100;
+  
+                this.physics.add.collider(this.ghostGroup, slice, (ghostHit, pizzaHit) =>
                 {
                     console.log("Enemy hit !!!!");
-                    enemyHit.setActive(false).setVisible(false).destroy();
-                    // Destroy bullet
-                    bulletHit.setActive(false).setVisible(false).destroy();
+                    ghostHit.setActive(false).setVisible(false).destroy();
+                    pizzaHit.setActive(false).setVisible(false).destroy();
                 });
-                lastFired = this.time + 100;
+        
         
             }          
         };
