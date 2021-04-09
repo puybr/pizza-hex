@@ -5,16 +5,16 @@ class GameScene extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image('sky', 'assets/sky.png');
+
         this.load.spritesheet('pizza', 'assets/pizza.png', {frameWidth: 50, frameHeight: 50});
         this.load.spritesheet('witch', 'assets/witch.png', {frameWidth: 200, frameHeight: 200});
-        this.load.spritesheet('ghost', 'assets/ghost.png', {frameWidth: 200, frameHeight: 200});
+        this.load.spritesheet('ghost', 'assets/ghost.png', {frameWidth: 150, frameHeight: 150});
     }
 
     create() {
         this.gameOver = false;
         this.cursors = this.input.keyboard.createCursorKeys();
-        this.add.image(400, 250, 'sky');
+        // this.stage.backgroundColor = "#4488AA";
 
 
         this.anims.create({
@@ -39,8 +39,8 @@ class GameScene extends Phaser.Scene {
         });
         this.anims.create({
             key: 'spook',
-            frameRate: 3,
-            frames: this.anims.generateFrameNumbers('ghost', {start: 1, end: 3}),repeat: -1
+            frameRate: 12,
+            frames: this.anims.generateFrameNumbers('ghost', {start: 0, end: 8}),repeat: -1
         });
         this.anims.create({
             key: 'spell',
@@ -117,21 +117,18 @@ class GameScene extends Phaser.Scene {
         this.witch.body.setSize(70, 80, true);
         this.physics.world.enable(this.witch);
         this.witch.play('fly');      
-
         this.speed = Phaser.Math.GetSpeed(200, 1);
 
         // 🧙‍♀️👻 Collision   
         this.physics.add.collider(this.witch, this.ghostGroup, (witch, ghost) => {
-            const ko = this.add.text(400, 250, 'You Died', { color: 'red', fontSize: 32 }).setOrigin(0.5, 0);
-            ko.setInteractive({useHandCursor: true});
-            this.witch.destroy();
             this.gameOver = true;
+            const ko = this.add.text(400, 250, 'You Died', { color: '#00FF00', fontSize: 32 }).setOrigin(0.5, 0);
+            ko.setInteractive({useHandCursor: true});
+            ko.on('pointerdown', () => this.scene.restart());
             if (this.cursors.space.isDown) {
                 this.scene.restart();
                 this.gameOver = false;
             }
-            ko.on('pointerdown', () => this.scene.restart());
-
         });
                    
         }// end create
@@ -140,10 +137,13 @@ class GameScene extends Phaser.Scene {
 
 
     update() {
+        this.witch.play('fly', true);
         if(this.gameOver)
         {
             return;
         }
+
+
         Phaser.Actions.IncX(this.ghostGroup.getChildren(), -3);
         this.ghostGroup.getChildren().forEach(ghost => {
             if (ghost.active && ghost.x < -100) {
@@ -169,7 +169,7 @@ class GameScene extends Phaser.Scene {
             if (slice) {
                 slice.add
                 slice.fire(this.witch.x, this.witch.y);
-                // slice.anims.play('spell');
+
                 this.physics.add.collider(this.ghostGroup, slice, (enemyHit, bulletHit) =>
                 {
                     console.log("Enemy hit !!!!");
