@@ -9,6 +9,7 @@ class GameScene extends Phaser.Scene {
         this.load.spritesheet('pizza', 'assets/pizza.png', {frameWidth: 50, frameHeight: 50});
         this.load.spritesheet('witch', 'assets/witch.png', {frameWidth: 200, frameHeight: 200});
         this.load.spritesheet('ghost', 'assets/ghost.png', {frameWidth: 150, frameHeight: 150});
+        this.load.spritesheet('clouds', 'assets/clouds.png', {frameWidth: 500, frameHeight: 500});
         this.load.audio("spell-audio", ["assets/8-bit-error.wav"]);
     }
 
@@ -54,10 +55,22 @@ class GameScene extends Phaser.Scene {
             frameRate: 24,
             frames: this.anims.generateFrameNumbers('ghost', {start: 9, end: 12}),repeat: 0
         });
+        this.anims.create({
+            key: 'sky',
+            frameRate: 6,
+            frames: this.anims.generateFrameNumbers('clouds', {start: 0, end: 2}),repeat: -1
+        });
         // 👻 Ghost Object Pool
         this.ghostGroup = this.physics.add.group({
             defaultKey: 'ghost',
             maxSize: 100,
+            visible: false,
+            active: false
+        });
+        //Cloud Object Pool
+        this.sky = this.add.group({
+            defaultKey: 'clouds',
+            maxSize: 500,
             visible: false,
             active: false
         });
@@ -78,9 +91,27 @@ class GameScene extends Phaser.Scene {
                     .setActive(true)
                     .setVisible(true)
                     .play('spook')
-                    .body.setSize(100, 60, true);     
+                    .body.setSize(100, 60, true);
             }
         });
+
+        this.time.addEvent({
+            delay: 3000,
+            loop: true,
+            callback: () => {
+                if (this.gameOver) {
+                    return;
+                }
+                const x = Phaser.Math.Between(900, 1000);
+                const y = Phaser.Math.Between(50, 450);
+                const skyElem = this.sky.get(x, y);
+                skyElem
+                    .setActive(true)
+                    .setVisible(true)
+                    .play('sky');
+            }
+
+        })
 
         // 🍕 Add some pizza ...       
         let Spell = new Phaser.Class({
@@ -129,6 +160,7 @@ class GameScene extends Phaser.Scene {
         this.speed = Phaser.Math.GetSpeed(200, 1);
 
 
+
         // 🧙‍♀️👻 Collision   
         this.physics.add.collider(this.witch, this.ghostGroup, (witch, ghost) => {
             this.gameOver = true;
@@ -159,6 +191,13 @@ class GameScene extends Phaser.Scene {
                 this.ghostGroup.killAndHide(ghost);
             }
         });
+
+        Phaser.Actions.IncX(this.sky.getChildren(), -2);
+        this.sky.getChildren().forEach(s => {
+            if (s.active && s.x < -250) {
+                this.sky.killAndHide(s);
+            }
+        })
   
         if (this.cursors.up.isDown && this.witch.y > 50) {
             this.witch.y += -4;
