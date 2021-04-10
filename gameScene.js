@@ -9,7 +9,7 @@ class GameScene extends Phaser.Scene {
         this.load.spritesheet('pizza', 'assets/pizza.png', {frameWidth: 50, frameHeight: 50});
         this.load.spritesheet('witch', 'assets/witch.png', {frameWidth: 200, frameHeight: 200});
         this.load.spritesheet('ghost', 'assets/ghost.png', {frameWidth: 150, frameHeight: 150});
-        this.load.spritesheet('clouds', 'assets/clouds.png', {frameWidth: 500, frameHeight: 500});
+        this.load.spritesheet('clouds', 'assets/clouds.png', {frameWidth: 500, frameHeight: 200});
         this.load.audio("spell-audio", ["assets/8-bit-error.wav"]);
     }
 
