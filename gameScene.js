@@ -191,7 +191,7 @@ class GameScene extends Phaser.Scene {
                 this.sound.add("spell-audio", { loop: false }).play(); // HIT SOUND
                 this.physics.add.collider(this.ghostGroup, slice, (ghostHit, pizzaHit) => {
                     pizzaHit.setActive(false).setVisible(false).destroy();
-                    ghostHit.play('poof');
+                    ghostHit.play('poof', true);
                     ghostHit.on('animationcomplete', () => {
                         ghostHit.setActive(false).setVisible(false).destroy();
                     });
