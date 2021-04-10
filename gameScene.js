@@ -89,10 +89,11 @@ class GameScene extends Phaser.Scene {
             },
     
             fire: function (x, y) {
-                this.setPosition(x, y); 
+                this.setPosition(x + 50, y); 
                 this.setActive(true);
                 this.setVisible(true);
                 this.body.setSize(20, 20, true);
+                
             },
     
             update: function (time, delta) {
@@ -127,7 +128,6 @@ class GameScene extends Phaser.Scene {
             this.gameOver = true;
             const ko = this.add.text(400, 250, 'You Died', { color: '#00FF00', fontSize: 32 }).setOrigin(0.5, 0);
             ko.setInteractive({useHandCursor: true});
-            // themeMusic.pause();
             ko.on('pointerdown', () => this.scene.restart());
             if (this.cursors.space.isDown) {
                 this.scene.restart();
@@ -154,9 +154,8 @@ class GameScene extends Phaser.Scene {
                 this.ghostGroup.killAndHide(ghost);
             }
         });
+
       
-       
-        let lastFired = 0;
     
         if (this.cursors.up.isDown && this.witch.y > 50) {
             this.witch.y += -4;
@@ -166,19 +165,34 @@ class GameScene extends Phaser.Scene {
             this.witch.y += 4;
             this.witch.play('down', true);
         }
-        if (this.cursors.space.isDown) {
-            this.witch.play('fire', true); 
-            const slice = this.pizzaGroup.get(this.witch.x, this.witch.y);
 
-            if (slice) {
+
+        // SPACEBAR 
+        if (this.cursors.space.isDown) {
+            //Shot Spawn Delay
+            let nextShot = this.time.now + this.shotDelay;
+            this.shotDelay = 300;
+            console.log('Now: '+this.time.now+'...Next: '+nextShot+'...Delay: '+this.shotDelay)
+            if (this.time.now > nextShot) {
+                console.log('skip fire');
+                return; //skip
+              }
+              
+      
+
+
+            // 🍕 Fire some pizza ... 
+            this.witch.play('fire', true); 
+            const slice = this.pizzaGroup.get(this.witch.x, this.witch.y);             
+            if (slice) { 
                 slice.add
                 slice.fire(this.witch.x, this.witch.y);
                 this.sound.add("spell-audio", { loop: false }).play();
-                // lastFired = this.time + 100;
+    
   
                 this.physics.add.collider(this.ghostGroup, slice, (ghostHit, pizzaHit) =>
                 {
-                    console.log("Enemy hit !!!!");
+                    // console.log("Enemy hit !!!!");
                     ghostHit.setActive(false).setVisible(false).destroy();
                     pizzaHit.setActive(false).setVisible(false).destroy();
                 });

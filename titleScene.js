@@ -15,7 +15,7 @@ class TitleScene extends Phaser.Scene {
     }
 
     create() {
-        this.sound.add("intro", { loop: false }).play();
+        // this.sound.add('intro', { loop: false }).play();
         const title = this.add.image(390, 250, 'title');
         this.add.image(300, 160, 'ghost-goblin');
         this.add.image(400, 350, 'start');
@@ -31,6 +31,9 @@ class TitleScene extends Phaser.Scene {
 
     update() {
         this.cursors = this.input.keyboard.createCursorKeys();
+        // if (this.cache.isSoundDecoded('intro')) {
+        //     this.scene.start();
+        // };
         if (this.cursors.space.isDown) {
             this.scene.switch('gameScene');
         }
