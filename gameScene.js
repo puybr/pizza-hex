@@ -16,6 +16,7 @@ class GameScene extends Phaser.Scene {
         this.gameOver = false;
         this.cursors = this.input.keyboard.createCursorKeys();
         this.cameras.main.backgroundColor = Phaser.Display.Color.HexStringToColor("#3498db");
+        this.lastFired = 0;
         // const themeMusic = this.sound.add("theme-music", { loop: true });
         // themeMusic.play();
 
@@ -170,23 +171,23 @@ class GameScene extends Phaser.Scene {
         // SPACEBAR 
         if (this.cursors.space.isDown) {
             //Shot Spawn Delay
-            let nextShot = this.time.now + this.shotDelay;
-            this.shotDelay = 300;
-            console.log('Now: '+this.time.now+'...Next: '+nextShot+'...Delay: '+this.shotDelay)
-            if (this.time.now > nextShot) {
-                console.log('skip fire');
-                return; //skip
-              }
+
+            if (this.time.now < this.lastFired) {
+                console.log('skip');
+                return;
+            }
               
       
 
 
             // 🍕 Fire some pizza ... 
             this.witch.play('fire', true); 
-            const slice = this.pizzaGroup.get(this.witch.x, this.witch.y);             
-            if (slice) { 
+            const slice = this.pizzaGroup.get();             
+            if (slice) {
                 slice.add
                 slice.fire(this.witch.x, this.witch.y);
+                this.lastFired = this.time.now + 200;
+                console.log(this.lastFired);
                 this.sound.add("spell-audio", { loop: false }).play();
     
   
