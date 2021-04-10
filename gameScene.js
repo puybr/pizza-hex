@@ -17,9 +17,6 @@ class GameScene extends Phaser.Scene {
         this.cursors = this.input.keyboard.createCursorKeys();
         this.cameras.main.backgroundColor = Phaser.Display.Color.HexStringToColor("#3498db");
         this.lastFired = 0;
-        // const themeMusic = this.sound.add("theme-music", { loop: true });
-        // themeMusic.play();
-
 
         this.anims.create({
             key: 'up',
@@ -119,7 +116,9 @@ class GameScene extends Phaser.Scene {
 
         // 🧙‍♀️ Add the witch
         this.witch = this.physics.add.sprite(160, 250, 'witch').setDepth(1);
-        this.witch.body.setSize(70, 80, true);
+        this.witch.body.setSize(70, 70, true);
+        console.log(this.witch.body);
+        this.witch.body.offset = {x: 120, y: 60};
         this.physics.world.enable(this.witch);
         this.witch.play('fly');      
         this.speed = Phaser.Math.GetSpeed(200, 1);
@@ -171,23 +170,16 @@ class GameScene extends Phaser.Scene {
         // SPACEBAR 
         if (this.cursors.space.isDown) {
             //Shot Spawn Delay
-
             if (this.time.now < this.lastFired) {
-                console.log('skip');
                 return;
-            }
-              
-      
-
-
+            }  
             // 🍕 Fire some pizza ... 
             this.witch.play('fire', true); 
             const slice = this.pizzaGroup.get();             
             if (slice) {
                 slice.add
                 slice.fire(this.witch.x, this.witch.y);
-                this.lastFired = this.time.now + 200;
-                console.log(this.lastFired);
+                this.lastFired = this.time.now + 200; //fire delay
                 this.sound.add("spell-audio", { loop: false }).play();
     
   
