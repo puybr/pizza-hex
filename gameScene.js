@@ -21,7 +21,7 @@ class GameScene extends Phaser.Scene {
 
         this.anims.create({
             key: 'up',
-            frameRate: 7,
+            frameRate: 12,
             frames: this.anims.generateFrameNumbers('witch', {start: 16, end: 23}), repeat: 0
         });
         this.anims.create({
@@ -31,23 +31,28 @@ class GameScene extends Phaser.Scene {
         });
         this.anims.create({
             key: 'fire',
-            frameRate: 12,
+            frameRate: 24,
             frames: this.anims.generateFrameNumbers('witch', {start: 24, end: 29}),repeat: 0
         });
         this.anims.create({
             key: 'fly',
-            frameRate: 6,
+            frameRate: 12,
             frames: this.anims.generateFrameNumbers('witch', {start: 8, end: 15}),repeat: -1
         });
         this.anims.create({
             key: 'spook',
             frameRate: 12,
-            frames: this.anims.generateFrameNumbers('ghost', {start: 0, end: 8}),repeat: -1
+            frames: this.anims.generateFrameNumbers('ghost', {start: 0, end: 8}),repeat: 0
         });
         this.anims.create({
             key: 'spell',
-            frameRate: 3,
-            frames: this.anims.generateFrameNumbers('pizza', {start: 1, end: 3}),repeat: -1
+            frameRate: 6,
+            frames: this.anims.generateFrameNumbers('pizza', {start: 1, end: 3}),repeat: 0
+        });
+        this.anims.create({
+            key: 'poof',
+            frameRate: 24,
+            frames: this.anims.generateFrameNumbers('ghost', {start: 9, end: 12}),repeat: 0
         });
         // 👻 Ghost Object Pool
         this.ghostGroup = this.physics.add.group({
@@ -120,12 +125,9 @@ class GameScene extends Phaser.Scene {
         this.witch.body.setSize(70, 70, true);
         this.witch.body.offset = {x: 120, y: 60};
         this.physics.world.enable(this.witch);
-        this.witch.play('fly');      
+        this.witch.play('fly', true);      
         this.speed = Phaser.Math.GetSpeed(200, 1);
 
-        if (this.witch.anims.isPlaying = true) {
-            console.log(this.witch.anims)
-        }
 
         // 🧙‍♀️👻 Collision   
         this.physics.add.collider(this.witch, this.ghostGroup, (witch, ghost) => {
@@ -145,51 +147,54 @@ class GameScene extends Phaser.Scene {
 
 
     update() {
+
         // Game Over ... you're dead!
         if (this.gameOver) {
             this.anims.pauseAll();
             return;
         }
-
         Phaser.Actions.IncX(this.ghostGroup.getChildren(), -3);
         this.ghostGroup.getChildren().forEach(ghost => {
             if (ghost.active && ghost.x < -100) {
                 this.ghostGroup.killAndHide(ghost);
             }
         });
-
-      
-    
+  
         if (this.cursors.up.isDown && this.witch.y > 50) {
-            console.log('UP');
             this.witch.y += -4;
-            this.witch.play('up');
+            this.witch.play('up', true);
+            this.witch.on('animationcomplete', () => {
+                this.witch.play('fly', true);
+            });
         }
         if (this.cursors.down.isDown && this.witch.y < 450) {
-            console.log('DOWN');
             this.witch.y += 4;
-            this.witch.play('down');
+            this.witch.play('down', true);
+            this.witch.on('animationcomplete', () => {
+                this.witch.play('fly', true);
+            });
         }
         
-
-
-
 
         // SPACEBAR 
         if (this.cursors.space.isDown) {
             if (this.time.now < this.lastFired) { return; } //Shot Spawn Delay
-            this.witch.play('fire');
-            console.log('SPACE');
+            this.witch.play('fire', true);
+            this.witch.on('animationcomplete', () => {
+                this.witch.play('fly', true);
+            });
             const slice = this.pizzaGroup.get(); // 🍕 Fire some pizza ...              
             if (slice) {
                 slice.add
                 slice.fire(this.witch.x, this.witch.y);
                 this.lastFired = this.time.now + 200; //fire delay
-                // this.sound.add("spell-audio", { loop: false }).play(); // HIT SOUND
+                this.sound.add("spell-audio", { loop: false }).play(); // HIT SOUND
                 this.physics.add.collider(this.ghostGroup, slice, (ghostHit, pizzaHit) => {
-                    // console.log("Enemy hit !!!!");
-                    ghostHit.setActive(false).setVisible(false).destroy();
                     pizzaHit.setActive(false).setVisible(false).destroy();
+                    ghostHit.play('poof');
+                    ghostHit.on('animationcomplete', () => {
+                        ghostHit.setActive(false).setVisible(false).destroy();
+                    });
                 });       
             }          
         }; //SPACEBAR
