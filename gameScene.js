@@ -15,8 +15,9 @@ class GameScene extends Phaser.Scene {
     create() {
         this.gameOver = false;
         this.cursors = this.input.keyboard.createCursorKeys();
-        this.cameras.main.backgroundColor = Phaser.Display.Color.HexStringToColor("#3498db");
+        this.cameras.main.backgroundColor = Phaser.Display.Color.HexStringToColor('#3498db');
         this.lastFired = 0;
+        this.anims.resumeAll();
 
         this.anims.create({
             key: 'up',
@@ -82,7 +83,7 @@ class GameScene extends Phaser.Scene {
             initialize: 
             function Spell (scene) {
                 this.pizza = Phaser.GameObjects.Sprite.call(this, scene, 0, 0, 'pizza');  
-                this.speed = Phaser.Math.GetSpeed(500, 1);
+                this.speed = Phaser.Math.GetSpeed(800, 1);
                 this.anims.play('spell');
             },
     
@@ -117,11 +118,14 @@ class GameScene extends Phaser.Scene {
         // 🧙‍♀️ Add the witch
         this.witch = this.physics.add.sprite(160, 250, 'witch').setDepth(1);
         this.witch.body.setSize(70, 70, true);
-        console.log(this.witch.body);
         this.witch.body.offset = {x: 120, y: 60};
         this.physics.world.enable(this.witch);
         this.witch.play('fly');      
         this.speed = Phaser.Math.GetSpeed(200, 1);
+
+        if (this.witch.anims.isPlaying = true) {
+            console.log(this.witch.anims)
+        }
 
         // 🧙‍♀️👻 Collision   
         this.physics.add.collider(this.witch, this.ghostGroup, (witch, ghost) => {
@@ -141,12 +145,11 @@ class GameScene extends Phaser.Scene {
 
 
     update() {
-        this.witch.play('fly', true);
-        if(this.gameOver)
-        {
+        // Game Over ... you're dead!
+        if (this.gameOver) {
+            this.anims.pauseAll();
             return;
         }
-
 
         Phaser.Actions.IncX(this.ghostGroup.getChildren(), -3);
         this.ghostGroup.getChildren().forEach(ghost => {
@@ -158,41 +161,40 @@ class GameScene extends Phaser.Scene {
       
     
         if (this.cursors.up.isDown && this.witch.y > 50) {
+            console.log('UP');
             this.witch.y += -4;
-            this.witch.play('up', true);
+            this.witch.play('up');
         }
         if (this.cursors.down.isDown && this.witch.y < 450) {
+            console.log('DOWN');
             this.witch.y += 4;
-            this.witch.play('down', true);
+            this.witch.play('down');
         }
+        
+
+
 
 
         // SPACEBAR 
         if (this.cursors.space.isDown) {
-            //Shot Spawn Delay
-            if (this.time.now < this.lastFired) {
-                return;
-            }  
-            // 🍕 Fire some pizza ... 
-            this.witch.play('fire', true); 
-            const slice = this.pizzaGroup.get();             
+            if (this.time.now < this.lastFired) { return; } //Shot Spawn Delay
+            this.witch.play('fire');
+            console.log('SPACE');
+            const slice = this.pizzaGroup.get(); // 🍕 Fire some pizza ...              
             if (slice) {
                 slice.add
                 slice.fire(this.witch.x, this.witch.y);
                 this.lastFired = this.time.now + 200; //fire delay
-                this.sound.add("spell-audio", { loop: false }).play();
-    
-  
-                this.physics.add.collider(this.ghostGroup, slice, (ghostHit, pizzaHit) =>
-                {
+                // this.sound.add("spell-audio", { loop: false }).play(); // HIT SOUND
+                this.physics.add.collider(this.ghostGroup, slice, (ghostHit, pizzaHit) => {
                     // console.log("Enemy hit !!!!");
                     ghostHit.setActive(false).setVisible(false).destroy();
                     pizzaHit.setActive(false).setVisible(false).destroy();
-                });
-        
-        
+                });       
             }          
-        };
+        }; //SPACEBAR
+
+
 
      
     }
