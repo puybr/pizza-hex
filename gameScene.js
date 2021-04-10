@@ -10,13 +10,14 @@ class GameScene extends Phaser.Scene {
         this.load.spritesheet('witch', 'assets/witch.png', {frameWidth: 200, frameHeight: 200});
         this.load.spritesheet('ghost', 'assets/ghost.png', {frameWidth: 150, frameHeight: 150});
         this.load.spritesheet('clouds', 'assets/clouds.png', {frameWidth: 500, frameHeight: 200});
+        // this.load.image('background', 'assets/background.png');
         this.load.audio("spell-audio", ["assets/8-bit-error.wav"]);
     }
 
     create() {
+        this.cameras.main.backgroundColor = Phaser.Display.Color.HexStringToColor('#FF6347');
         this.gameOver = false;
         this.cursors = this.input.keyboard.createCursorKeys();
-        this.cameras.main.backgroundColor = Phaser.Display.Color.HexStringToColor('#3498db');
         this.lastFired = 0;
         this.anims.resumeAll();
 
@@ -95,24 +96,6 @@ class GameScene extends Phaser.Scene {
             }
         });
 
-        this.time.addEvent({
-            delay: 3000,
-            loop: true,
-            callback: () => {
-                if (this.gameOver) {
-                    return;
-                }
-                const x = Phaser.Math.Between(900, 1000);
-                const y = Phaser.Math.Between(50, 450);
-                const skyElem = this.sky.get(x, y);
-                skyElem
-                    .setActive(true)
-                    .setVisible(true)
-                    .play('sky');
-            }
-
-        })
-
         // 🍕 Add some pizza ...       
         let Spell = new Phaser.Class({
             Extends: Phaser.GameObjects.Sprite,    
@@ -158,6 +141,11 @@ class GameScene extends Phaser.Scene {
         this.physics.world.enable(this.witch);
         this.witch.play('fly', true);      
         this.speed = Phaser.Math.GetSpeed(200, 1);
+        // this.add.image(400, 250, 'background');
+
+        this.cloud = this.add.sprite(800,100, 'clouds').setDepth(-1);
+        this.physics.world.enable(this.cloud);
+        this.cloud.body.velocity.x = - 80; 
 
 
 
@@ -191,13 +179,6 @@ class GameScene extends Phaser.Scene {
                 this.ghostGroup.killAndHide(ghost);
             }
         });
-
-        Phaser.Actions.IncX(this.sky.getChildren(), -2);
-        this.sky.getChildren().forEach(s => {
-            if (s.active && s.x < -250) {
-                this.sky.killAndHide(s);
-            }
-        })
   
         if (this.cursors.up.isDown && this.witch.y > 50) {
             this.witch.y += -4;
