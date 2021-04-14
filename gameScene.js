@@ -15,7 +15,7 @@ class GameScene extends Phaser.Scene {
     }
 
     create() {
-        this.cameras.main.backgroundColor = Phaser.Display.Color.HexStringToColor('#FF6347');
+        // this.cameras.main.backgroundColor = Phaser.Display.Color.HexStringToColor('#FF6347');
         this.gameOver = false;
         this.cursors = this.input.keyboard.createCursorKeys();
         this.lastFired = 0;
