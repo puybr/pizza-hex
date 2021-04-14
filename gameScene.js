@@ -6,11 +6,11 @@ class GameScene extends Phaser.Scene {
 
     preload() {
 
-        this.load.spritesheet('pizza', 'assets/pizza.png', {frameWidth: 50, frameHeight: 50});
+        this.load.spritesheet('pizza', 'assets/pizza.png', {frameWidth: 100, frameHeight: 100});
         this.load.spritesheet('witch', 'assets/witch.png', {frameWidth: 200, frameHeight: 200});
         this.load.spritesheet('ghost', 'assets/ghost.png', {frameWidth: 150, frameHeight: 150});
-        this.load.spritesheet('clouds', 'assets/clouds.png', {frameWidth: 500, frameHeight: 200});
-        // this.load.image('background', 'assets/background.png');
+        this.load.image('cloud-0', 'assets/cloud-0.png', {frameWidth: 400, frameHeight: 200});
+        this.load.image('background', 'assets/background.png');
         this.load.audio("spell-audio", ["assets/8-bit-error.wav"]);
     }
 
@@ -56,11 +56,6 @@ class GameScene extends Phaser.Scene {
             frameRate: 24,
             frames: this.anims.generateFrameNumbers('ghost', {start: 9, end: 12}),repeat: 0
         });
-        this.anims.create({
-            key: 'sky',
-            frameRate: 6,
-            frames: this.anims.generateFrameNumbers('clouds', {start: 0, end: 2}),repeat: -1
-        });
         // 👻 Ghost Object Pool
         this.ghostGroup = this.physics.add.group({
             defaultKey: 'ghost',
@@ -68,14 +63,6 @@ class GameScene extends Phaser.Scene {
             visible: false,
             active: false
         });
-        //Cloud Object Pool
-        this.sky = this.add.group({
-            defaultKey: 'clouds',
-            maxSize: 500,
-            visible: false,
-            active: false
-        });
-        
 
 
         this.time.addEvent({
@@ -141,18 +128,16 @@ class GameScene extends Phaser.Scene {
         this.physics.world.enable(this.witch);
         this.witch.play('fly', true);      
         this.speed = Phaser.Math.GetSpeed(200, 1);
-        // this.add.image(400, 250, 'background');
+        this.add.image(400, 250, 'background');
+        this.add.image(500, 100, 'cloud-0');
 
-        this.cloud = this.add.sprite(800,100, 'clouds').setDepth(-1);
-        this.physics.world.enable(this.cloud);
-        this.cloud.body.velocity.x = - 80; 
 
 
 
         // 🧙‍♀️👻 Collision   
         this.physics.add.collider(this.witch, this.ghostGroup, (witch, ghost) => {
             this.gameOver = true;
-            const ko = this.add.text(400, 250, 'You Died', { color: '#00FF00', fontSize: 32 }).setOrigin(0.5, 0);
+            const ko = this.add.text(400, 0, 'You Died', { color: '#87FF47', fontSize: 32 }).setOrigin(0.5, 0);
             ko.setInteractive({useHandCursor: true});
             ko.on('pointerdown', () => this.scene.restart());
             if (this.cursors.space.isDown) {
