@@ -20,14 +20,15 @@ class TitleScene extends Phaser.Scene {
         this.cursors = this.input.keyboard.createCursorKeys();
         this.add.image(400, 250, 'background');
         // this.add.image(220,300, 'mushroom-0');
+        this.cloudOne = this.add.tileSprite(0, 100, 1600, 800, 'cloud-0');
+        console.log(this.cloudOne.tilePositionX);
         this.add.image(220,180, 'mushroom-1');
-        this.add.image(20, 100, 'cloud-0');
-        this.add.image(400, 250, 'cloud-1');
-        this.add.image(750, 100, 'cloud-2');
+        // this.add.image(400, 250, 'cloud-1');
+        // this.add.image(750, 100, 'cloud-2');
         this.title = this.add.text(400, -500, 'Pizza Hex',
         { color: '#380073',fontSize: 100, fontFamily: 'Alagard'  }).setOrigin(0.5, 0);
         this.add.text(400, 60, 'Press <SPACEBAR> to Start',
-        { color: '#FFBBE2',fontSize: 50, fontFamily: 'Alagard'  }).setOrigin(0.5, 0);
+        { color: '#380073',fontSize: 50, fontFamily: 'Alagard'  }).setOrigin(0.5, 0);
         this.title.setInteractive({useHandCursor: true});
         this.title.on('pointerdown', () => this.clickButton());
         this.intro = this.sound.add('intro', { loop: false, volume: 0.2 });
@@ -47,6 +48,7 @@ class TitleScene extends Phaser.Scene {
     }
 
     update() {
+        this.cloudOne.tilePositionX += 0.2
         if (this.cursors.space.isDown) {
             this.scene.switch('gameScene');
         }
