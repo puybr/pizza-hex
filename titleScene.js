@@ -30,7 +30,12 @@ class TitleScene extends Phaser.Scene {
         this.title.setInteractive({useHandCursor: true});
         this.title.on('pointerdown', () => this.clickButton());
         this.intro = this.sound.add('intro', { loop: false, volume: 0.2 });
+        this.cursors = this.input.keyboard.createCursorKeys();
+        if (this.cursors.space.isDown) {
+            this.scene.switch('gameScene');
+        }
         console.log(this.sound.locked);
+        console.log(this.sound.context.state);
         if (!this.sound.locked) {
             this.intro.play();
         } else {
@@ -46,10 +51,7 @@ class TitleScene extends Phaser.Scene {
     }
 
     update() {
-        this.cursors = this.input.keyboard.createCursorKeys();
-        if (this.cursors.space.isDown) {
-            this.scene.switch('gameScene');
-        }
+        
     }
 
 }
