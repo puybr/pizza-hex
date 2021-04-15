@@ -32,16 +32,12 @@ class TitleScene extends Phaser.Scene {
         this.title.on('pointerdown', () => this.clickButton());
         this.intro = this.sound.add('intro', { loop: false, volume: 0.2 });
         // A U D I O
-        console.log(this.sound.locked);
-        console.log(this.sound.context.state);
         if (!this.sound.locked) {
-            console.log('unlocked');
             this.intro.play(); 
-        // } else {
-        //     this.sound.once(Phaser.Sound.Events.UNLOCKED, () => {
-        //         console.log('unlocked');
-        //         this.intro.play();
-        //     })
+        } else {
+            this.sound.on('unlocked', () => {
+                this.intro.play();
+            })
         };
         
     }
