@@ -9,7 +9,7 @@ class GameScene extends Phaser.Scene {
         this.load.spritesheet('pizza', 'assets/pizza.png', {frameWidth: 100, frameHeight: 100});
         this.load.spritesheet('witch', 'assets/witch.png', {frameWidth: 200, frameHeight: 200});
         this.load.spritesheet('ghost', 'assets/ghost.png', {frameWidth: 150, frameHeight: 150});
-        this.load.image('cloud-0', 'assets/cloud-0.png', {frameWidth: 400, frameHeight: 200});
+        this.load.image('cloud-0', 'assets/cloud-0.png');
         this.load.image('background', 'assets/background.png');
         this.load.audio("spell-audio", ["assets/8-bit-error.wav"]);
     }
@@ -137,7 +137,8 @@ class GameScene extends Phaser.Scene {
         // 🧙‍♀️👻 Collision   
         this.physics.add.collider(this.witch, this.ghostGroup, (witch, ghost) => {
             this.gameOver = true;
-            const ko = this.add.text(400, 0, 'You Died', { color: '#87FF47', fontSize: 32 }).setOrigin(0.5, 0);
+            const ko = this.add.text(400, -100, 'You Died',
+            { color: '#87FF47', fontSize: 50, fontFamily: 'Alagard'  }).setOrigin(0.5, 0);
             ko.setInteractive({useHandCursor: true});
             ko.on('pointerdown', () => this.scene.restart());
             if (this.cursors.space.isDown) {
