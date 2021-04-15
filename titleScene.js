@@ -17,6 +17,7 @@ class TitleScene extends Phaser.Scene {
     }
 
     create() {
+        this.cursors = this.input.keyboard.createCursorKeys();
         this.add.image(400, 250, 'background');
         // this.add.image(220,300, 'mushroom-0');
         this.add.image(220,180, 'mushroom-1');
@@ -30,15 +31,17 @@ class TitleScene extends Phaser.Scene {
         this.title.setInteractive({useHandCursor: true});
         this.title.on('pointerdown', () => this.clickButton());
         this.intro = this.sound.add('intro', { loop: false, volume: 0.2 });
+        // A U D I O
         console.log(this.sound.locked);
         console.log(this.sound.context.state);
-
         if (!this.sound.locked) {
-            this.intro.play();
-        } else {
-            this.sound.once(Phaser.Sound.Events.UNLOCKED, () => {
-                this.intro.play()
-            })
+            console.log('unlocked');
+            this.intro.play(); 
+        // } else {
+        //     this.sound.once(Phaser.Sound.Events.UNLOCKED, () => {
+        //         console.log('unlocked');
+        //         this.intro.play();
+        //     })
         };
         
     }
@@ -48,10 +51,10 @@ class TitleScene extends Phaser.Scene {
     }
 
     update() {
-        this.cursors = this.input.keyboard.createCursorKeys();
         if (this.cursors.space.isDown) {
             this.scene.switch('gameScene');
         }
+        
     }
 
 }
