@@ -48,7 +48,7 @@ class GameScene extends Phaser.Scene {
         });
         this.anims.create({
             key: 'spell',
-            frameRate: 6,
+            frameRate: 3,
             frames: this.anims.generateFrameNumbers('pizza', {start: 1, end: 3}),repeat: 0
         });
         this.anims.create({
