@@ -11,7 +11,7 @@ class GameScene extends Phaser.Scene {
         this.load.spritesheet('ghost', 'assets/ghost.png', {frameWidth: 150, frameHeight: 150});
         this.load.image('cloud-0', 'assets/cloud-0.png');
         this.load.image('background', 'assets/background.png');
-        this.load.audio("spell-audio", ["assets/8-bit-error.wav"]);
+        this.load.audio('spell-audio', ['assets/8-bit-error.wav']);
     }
 
     create() {
@@ -194,7 +194,7 @@ class GameScene extends Phaser.Scene {
                 slice.add
                 slice.fire(this.witch.x, this.witch.y);
                 this.lastFired = this.time.now + 200; //fire delay
-                this.sound.add("spell-audio", { loop: false }).play(); // HIT SOUND
+                this.sound.add("spell-audio", { loop: false, volume: 0.2 }).play(); // HIT SOUND
                 this.physics.add.collider(this.ghostGroup, slice, (ghostHit, pizzaHit) => {
                     pizzaHit.setActive(false).setVisible(false).destroy();
                     ghostHit.play('poof', true);

@@ -13,12 +13,10 @@ class TitleScene extends Phaser.Scene {
         this.load.image('cloud-1', 'assets/cloud-1.png');
         this.load.image('cloud-2', 'assets/cloud-2.png');
         this.load.image('background', 'assets/background.png');
-        this.load.audio("intro", ["assets/jingle-achievement-01.wav"]);
+        this.load.audio('intro', ['assets/jingle-achievement-01.wav']);
     }
 
     create() {
-        // this.sound.add('intro', { loop: false }).play();
-        // this.cameras.main.backgroundColor = Phaser.Display.Color.HexStringToColor('#380073');
         this.add.image(400, 250, 'background');
         // this.add.image(220,300, 'mushroom-0');
         this.add.image(220,180, 'mushroom-1');
@@ -31,6 +29,15 @@ class TitleScene extends Phaser.Scene {
         { color: '#FFBBE2',fontSize: 50, fontFamily: 'Alagard'  }).setOrigin(0.5, 0);
         this.title.setInteractive({useHandCursor: true});
         this.title.on('pointerdown', () => this.clickButton());
+        this.intro = this.sound.add('intro', { loop: false, volume: 0.2 });
+        console.log(this.sound.locked);
+        if (!this.sound.locked) {
+            this.intro.play();
+        } else {
+            this.sound.once(Phaser.Sound.Events.UNLOCKED, () => {
+                this.intro.play()
+            })
+        };
         
     }
     clickButton() {
@@ -40,9 +47,6 @@ class TitleScene extends Phaser.Scene {
 
     update() {
         this.cursors = this.input.keyboard.createCursorKeys();
-        // if (this.cache.isSoundDecoded('intro')) {
-        //     this.scene.start();
-        // };
         if (this.cursors.space.isDown) {
             this.scene.switch('gameScene');
         }
