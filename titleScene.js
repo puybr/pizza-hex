@@ -18,16 +18,16 @@ class TitleScene extends Phaser.Scene {
     create() {
         this.cursors = this.input.keyboard.createCursorKeys();
         this.add.image(400, 250, 'background');
-        // this.add.image(220,300, 'mushroom-0');
         this.cloudParallax = this.add.tileSprite(0, 400, 1600, 800, 'clouds');
+        this.add.image(610,120, 'mushroom-0');
         this.add.image(150,180, 'mushroom-1');
-        this.add.text(400, -80, 'Ghost Goblin Presets',
+        this.add.text(350, -80, 'Ghost Goblin Presets',
         { color: '#380073',fontSize: 30, fontFamily: 'Minecraft' }).setOrigin(0.5, 0);
-        this.add.text(400, 40, 'Press <SPACEBAR> to Start',
-        { color: '#FFF047',fontSize: 50, fontFamily: 'Minecraft' }).setOrigin(0.5, 0);
-        this.add.text(400, 380, '© Art by Elliott, the best artist in the world',
+        this.add.text(400, 50, 'Press <SPACEBAR> to Start',
+        { color: '#380073',fontSize: 38, fontFamily: 'Minecraft' }).setOrigin(0.5, 0);
+        this.add.text(400, 360, '© Art by Elliott, the best artist in the world',
         { color: '#380073',fontSize: 15, fontFamily: 'Minecraft' }).setOrigin(0.5, 0);
-        this.title = this.add.image(400,250,'title');
+        this.title = this.add.image(400,220,'title');
         this.title.setInteractive({useHandCursor: true});
         this.title.on('pointerdown', () => this.clickButton());
         this.intro = this.sound.add('intro', { loop: false, volume: 0.2 });
