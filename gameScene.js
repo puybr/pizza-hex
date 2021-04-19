@@ -12,7 +12,6 @@ class GameScene extends Phaser.Scene {
         this.load.image('clouds', 'assets/clouds2.png');
         this.load.image('background', 'assets/background.png');
         this.load.audio('spell-audio', ['assets/Legowelt Percussion Synth 50.wav']);
-        this.load.audio('dead', ['assets/Legowelt Percussion Synth 50.wav']);
     }
 
     create() {
