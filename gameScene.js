@@ -9,7 +9,7 @@ class GameScene extends Phaser.Scene {
         this.load.spritesheet('pizza', 'assets/pizza.png', {frameWidth: 100, frameHeight: 100});
         this.load.spritesheet('witch', 'assets/witch.png', {frameWidth: 200, frameHeight: 200});
         this.load.spritesheet('ghost', 'assets/ghost.png', {frameWidth: 150, frameHeight: 150});
-        this.load.image('cloud-0', 'assets/cloud-0.png');
+        this.load.image('clouds', 'assets/clouds.png');
         this.load.image('background', 'assets/background.png');
         this.load.audio('spell-audio', ['assets/8-bit-error.wav']);
     }
@@ -129,7 +129,7 @@ class GameScene extends Phaser.Scene {
         this.witch.play('fly', true);      
         this.speed = Phaser.Math.GetSpeed(200, 1);
         this.add.image(400, 250, 'background');
-        this.add.image(500, 100, 'cloud-0');
+        this.cloudParallax = this.add.tileSprite(0, 400, 1600, 800, 'clouds');
 
 
 
@@ -159,6 +159,7 @@ class GameScene extends Phaser.Scene {
             this.anims.pauseAll();
             return;
         }
+        this.cloudParallax.tilePositionX += 0.4;
         Phaser.Actions.IncX(this.ghostGroup.getChildren(), -3);
         this.ghostGroup.getChildren().forEach(ghost => {
             if (ghost.active && ghost.x < -100) {
