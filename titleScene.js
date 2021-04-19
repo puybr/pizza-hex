@@ -13,7 +13,7 @@ class TitleScene extends Phaser.Scene {
         this.load.image('background', 'assets/background.png');
         this.load.image('title', 'assets/title.png');
         this.load.spritesheet('pizza', 'assets/pizza.png', {frameWidth: 100, frameHeight: 100});
-        this.load.audio('intro', ['assets/Legowelt Percussion Synth 29.wav']);
+        this.load.audio('intro', ['assets/untitled.wav']);
     }
 
     create() {
@@ -38,7 +38,7 @@ class TitleScene extends Phaser.Scene {
         this.pizza = this.add.sprite(330, 160, 'pizza');
         this.pizza.play('spell', true);
         this.title.on('pointerdown', () => this.clickButton());
-        this.intro = this.sound.add('intro', { loop: false, volume: 0.2 });
+        this.intro = this.sound.add('intro', { loop: true, volume: 0.2 });
         // A U D I O
         if (!this.sound.locked) {
             this.intro.play(); 
