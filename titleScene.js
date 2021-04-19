@@ -11,6 +11,7 @@ class TitleScene extends Phaser.Scene {
         this.load.image('mushroom-1', 'assets/mush-1.png');
         this.load.image('clouds', 'assets/clouds2.png');
         this.load.image('background', 'assets/background.png');
+        this.load.image('title', 'assets/title.png');
         this.load.audio('intro', ['assets/jingle-achievement-01.wav']);
     }
 
@@ -19,9 +20,8 @@ class TitleScene extends Phaser.Scene {
         this.add.image(400, 250, 'background');
         // this.add.image(220,300, 'mushroom-0');
         this.cloudParallax = this.add.tileSprite(0, 400, 1600, 800, 'clouds');
-        this.add.image(220,180, 'mushroom-1');
-        this.title = this.add.text(400, -500, 'Pizza Hex',
-        { color: '#380073',fontSize: 100, fontFamily: 'Alagard'  }).setOrigin(0.5, 0);
+        this.add.image(150,180, 'mushroom-1');
+        this.title = this.add.image(400,250,'title');
         this.add.text(400, 60, 'Press <SPACEBAR> to Start',
         { color: '#380073',fontSize: 50, fontFamily: 'Alagard'  }).setOrigin(0.5, 0);
         this.title.setInteractive({useHandCursor: true});
