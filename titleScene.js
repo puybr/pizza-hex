@@ -13,7 +13,7 @@ class TitleScene extends Phaser.Scene {
         this.load.image('background', 'assets/background.png');
         this.load.image('title', 'assets/title.png');
         this.load.spritesheet('pizza', 'assets/pizza.png', {frameWidth: 100, frameHeight: 100});
-        this.load.audio('intro', ['assets/untitled.wav']);
+        this.load.audio('intro', ['assets/intro.wav']);
     }
 
     create() {
