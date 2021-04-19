@@ -12,10 +12,16 @@ class TitleScene extends Phaser.Scene {
         this.load.image('clouds', 'assets/clouds2.png');
         this.load.image('background', 'assets/background.png');
         this.load.image('title', 'assets/title.png');
-        this.load.audio('intro', ['assets/Legowelt Percussion Synth 14.wav']);
+        this.load.spritesheet('pizza', 'assets/pizza.png', {frameWidth: 100, frameHeight: 100});
+        this.load.audio('intro', ['assets/Legowelt Percussion Synth 29.wav']);
     }
 
     create() {
+        this.anims.create({
+            key: 'spell',
+            frameRate: 3,
+            frames: this.anims.generateFrameNumbers('pizza', {start: 1, end: 3}),repeat: -1
+        });
         this.cursors = this.input.keyboard.createCursorKeys();
         this.add.image(400, 250, 'background');
         this.cloudParallax = this.add.tileSprite(0, 400, 1600, 800, 'clouds');
@@ -29,6 +35,8 @@ class TitleScene extends Phaser.Scene {
         { color: '#380073',fontSize: 15, fontFamily: 'Minecraft' }).setOrigin(0.5, 0);
         this.title = this.add.image(400,220,'title');
         this.title.setInteractive({useHandCursor: true});
+        this.pizza = this.add.sprite(330, 160, 'pizza');
+        this.pizza.play('spell', true);
         this.title.on('pointerdown', () => this.clickButton());
         this.intro = this.sound.add('intro', { loop: false, volume: 0.2 });
         // A U D I O
