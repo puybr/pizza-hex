@@ -21,9 +21,13 @@ class TitleScene extends Phaser.Scene {
         // this.add.image(220,300, 'mushroom-0');
         this.cloudParallax = this.add.tileSprite(0, 400, 1600, 800, 'clouds');
         this.add.image(150,180, 'mushroom-1');
+        this.add.text(400, -80, 'Ghost Goblin Presets',
+        { color: '#380073',fontSize: 30, fontFamily: 'Alagard'  }).setOrigin(0.5, 0);
+        this.add.text(400, 40, 'Press <SPACEBAR> to Start',
+        { color: '#FFF047',fontSize: 50, fontFamily: 'Alagard'  }).setOrigin(0.5, 0);
+        this.add.text(400, 380, '© Art by Elliott, the best artist in the world',
+        { color: '#380073',fontSize: 15, fontFamily: 'Alagard'  }).setOrigin(0.5, 0);
         this.title = this.add.image(400,250,'title');
-        this.add.text(400, 60, 'Press <SPACEBAR> to Start',
-        { color: '#380073',fontSize: 50, fontFamily: 'Alagard'  }).setOrigin(0.5, 0);
         this.title.setInteractive({useHandCursor: true});
         this.title.on('pointerdown', () => this.clickButton());
         this.intro = this.sound.add('intro', { loop: false, volume: 0.2 });

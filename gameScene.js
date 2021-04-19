@@ -138,7 +138,7 @@ class GameScene extends Phaser.Scene {
         this.physics.add.collider(this.witch, this.ghostGroup, (witch, ghost) => {
             this.gameOver = true;
             const ko = this.add.text(400, -100, 'You Died',
-            { color: '#87FF47', fontSize: 50, fontFamily: 'Alagard'  }).setOrigin(0.5, 0);
+            { color: '#FFF047', fontSize: 50, fontFamily: 'Alagard'  }).setOrigin(0.5, 0);
             ko.setInteractive({useHandCursor: true});
             ko.on('pointerdown', () => this.scene.restart());
             if (this.cursors.space.isDown) {
