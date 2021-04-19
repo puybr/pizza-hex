@@ -12,7 +12,7 @@ class TitleScene extends Phaser.Scene {
         this.load.image('clouds', 'assets/clouds2.png');
         this.load.image('background', 'assets/background.png');
         this.load.image('title', 'assets/title.png');
-        this.load.audio('intro', ['assets/jingle-achievement-01.wav']);
+        this.load.audio('intro', ['assets/Legowelt Percussion Synth 14.wav']);
     }
 
     create() {
