@@ -130,6 +130,7 @@ class GameScene extends Phaser.Scene {
         this.speed = Phaser.Math.GetSpeed(200, 1);
         this.add.image(400, 250, 'background');
         this.cloudParallax = this.add.tileSprite(0, 400, 1600, 800, 'clouds');
+        console.log(this.cursors);
 
 
 
@@ -137,13 +138,15 @@ class GameScene extends Phaser.Scene {
         // 🧙‍♀️👻 Collision   
         this.physics.add.collider(this.witch, this.ghostGroup, (witch, ghost) => {
             this.gameOver = true;
-            const ko = this.add.text(400, -100, 'You Died',
-            { color: '#FFF047', fontSize: 50, fontFamily: 'Minecraft'  }).setOrigin(0.5, 0);
+            this.anims.pauseAll();
+            const ko = this.add.text(400, -150, '<SHIFT> to restart',
+            { color: '#FFF047', fontSize: 60, fontFamily: 'Minecraft'  }).setOrigin(0.5, 0).setDepth(2);
             ko.setInteractive({useHandCursor: true});
             ko.on('pointerdown', () => this.scene.restart());
-            if (this.cursors.space.isDown) {
-                this.scene.restart();
-                this.gameOver = false;
+            if (this.cursors.shift.isDown) {
+                this.registry.destroy(); // destroy registry
+                this.events.off(); // disable all active events
+                this.scene.restart();  // restart current scene
             }
         });
                    
@@ -156,7 +159,6 @@ class GameScene extends Phaser.Scene {
 
         // Game Over ... you're dead!
         if (this.gameOver) {
-            this.anims.pauseAll();
             return;
         }
         this.cloudParallax.tilePositionX += 0.4;
