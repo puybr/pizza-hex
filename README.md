@@ -4,3 +4,5 @@
 
 ### How to Play?
 Press the up and down keys, and space to fire!
+
+Artwork by [Elliott](https://www.behance.net/elliebeans6c58)
