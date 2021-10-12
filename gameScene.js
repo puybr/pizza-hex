@@ -139,8 +139,8 @@ class GameScene extends Phaser.Scene {
         this.physics.add.collider(this.witch, this.ghostGroup, (witch, ghost) => {
             this.gameOver = true;
             this.anims.pauseAll();
-            const ko = this.add.text(400, -150, '<SHIFT> to restart',
-            { color: '#FFF047', fontSize: 60, fontFamily: 'Minecraft'  }).setOrigin(0.5, 0).setDepth(2);
+            const ko = this.add.text(400, 220, '<SHIFT> to restart',
+            { color: '#FFF047', fontSize: 60, fontFamily: 'Minecraft' }).setOrigin(0.5, 0).setDepth(2);
             ko.setInteractive({useHandCursor: true});
             ko.on('pointerdown', () => this.scene.restart());
             if (this.cursors.shift.isDown) {

@@ -14,6 +14,7 @@ class TitleScene extends Phaser.Scene {
         this.load.image('title', 'assets/title.png');
         this.load.spritesheet('pizza', 'assets/pizza.png', {frameWidth: 100, frameHeight: 100});
         this.load.audio('intro', ['assets/intro.wav']);
+        this.loadFont('Minecraft', 'assets/Minecraft.ttf');
     }
 
     create() {
@@ -29,9 +30,9 @@ class TitleScene extends Phaser.Scene {
         this.add.image(150,180, 'mushroom-1');
         this.add.text(350, -80, 'Ghost Goblin Presets',
         { color: '#380073',fontSize: 30, fontFamily: 'Minecraft' }).setOrigin(0.5, 0);
-        this.add.text(400, 50, 'Press <SPACEBAR> to Start',
+        this.add.text(400, 300, 'Press <SPACEBAR> to Start',
         { color: '#380073',fontSize: 38, fontFamily: 'Minecraft' }).setOrigin(0.5, 0);
-        this.add.text(400, 360, '© Art by Elliott, the best artist in the world',
+        this.add.text(400, 450, '© Art by Elliott, the best artist in the world',
         { color: '#380073',fontSize: 15, fontFamily: 'Minecraft' }).setOrigin(0.5, 0);
         this.title = this.add.image(400,220,'title');
         this.title.setInteractive({useHandCursor: true});
@@ -52,6 +53,14 @@ class TitleScene extends Phaser.Scene {
     clickButton() {
         this.scene.switch('gameScene');
 
+    }
+    loadFont(name, url) {
+        const newFont = new FontFace('Minecraft', 'url(assets/Minecraft.ttf)');
+        newFont.load().then(function (loaded) {
+            document.fonts.add(loaded);
+        }).catch(function (error) {
+            return error;
+        });
     }
 
     update() {
