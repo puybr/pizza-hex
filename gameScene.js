@@ -15,7 +15,7 @@ class GameScene extends Phaser.Scene {
     }
 
     create() {
-        // this.cameras.main.backgroundColor = Phaser.Display.Color.HexStringToColor('#FF6347');
+        
         this.gameOver = false;
         this.cursors = this.input.keyboard.createCursorKeys();
         this.lastFired = 0;
@@ -83,6 +83,8 @@ class GameScene extends Phaser.Scene {
             }
         });
 
+
+
         // 🍕 Add some pizza ...       
         let Spell = new Phaser.Class({
             Extends: Phaser.GameObjects.Sprite,    
@@ -130,10 +132,6 @@ class GameScene extends Phaser.Scene {
         this.speed = Phaser.Math.GetSpeed(200, 1);
         this.add.image(400, 250, 'background');
         this.cloudParallax = this.add.tileSprite(0, 400, 1600, 800, 'clouds');
-        console.log(this.cursors);
-
-
-
 
         // 🧙‍♀️👻 Collision   
         this.physics.add.collider(this.witch, this.ghostGroup, (witch, ghost) => {
@@ -149,6 +147,7 @@ class GameScene extends Phaser.Scene {
                 this.scene.restart();  // restart current scene
             }
         });
+    
                    
         }// end create
 
@@ -156,7 +155,9 @@ class GameScene extends Phaser.Scene {
 
 
     update() {
-
+        let score = 0;
+        const scoreText = this.add.text(400, 10, `SCORE: ${score}`,
+        { color: '#FFF047', fontSize: 25, fontFamily: 'Minecraft' }).setOrigin(0.5, 0).setDepth(2);
         // Game Over ... you're dead!
         if (this.gameOver) {
             return;
@@ -194,6 +195,7 @@ class GameScene extends Phaser.Scene {
             });
             const slice = this.pizzaGroup.get(); // 🍕 Fire some pizza ...              
             if (slice) {
+
                 slice.add
                 slice.fire(this.witch.x, this.witch.y);
                 this.lastFired = this.time.now + 200; //fire delay
@@ -201,6 +203,9 @@ class GameScene extends Phaser.Scene {
                 this.physics.add.collider(this.ghostGroup, slice, (ghostHit, pizzaHit) => {
                     pizzaHit.setActive(false).setVisible(false).destroy();
                     ghostHit.play('poof', true);
+                    // this.score = this.score + 10;
+                    // console.log(this.score);
+                    // this.scoreText.setText(`SCORE: ${score}`);
                     ghostHit.on('animationcomplete', () => {
                         ghostHit.setActive(false).setVisible(false).destroy();
                     });

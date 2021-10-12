@@ -36,9 +36,9 @@ class TitleScene extends Phaser.Scene {
         { color: '#380073',fontSize: 18, fontFamily: 'Minecraft' }).setOrigin(0.5, 0);
         this.add.text(400, 425, '<SPACEBAR> to Cast Spells',
         { color: '#380073',fontSize: 18, fontFamily: 'Minecraft' }).setOrigin(0.5, 0);
-        this.add.text(400, 450, '<SHIFT> to Restart',
+        this.add.text(400, 450, 'Hold <SHIFT> to Restart',
         { color: '#380073',fontSize: 18, fontFamily: 'Minecraft' }).setOrigin(0.5, 0);
-        this.add.text(400, 10, '© Art by Elliott, the best artist in the world',
+        this.add.text(320, 125, '© Art by Elliott, the best artist in the world',
         { color: '#380073',fontSize: 11, fontFamily: 'Minecraft' }).setOrigin(0.5, 0);
         this.title = this.add.image(400,220,'title');
         this.title.setInteractive({useHandCursor: true});
