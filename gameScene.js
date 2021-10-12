@@ -201,17 +201,17 @@ class GameScene extends Phaser.Scene {
                 this.lastFired = this.time.now + 200; //fire delay
                 this.sound.add("spell-audio", { loop: false, volume: 0.2 }).play(); // HIT SOUND
                 this.physics.add.collider(this.ghostGroup, slice, (ghostHit, pizzaHit) => {
+                    // 💥
                     pizzaHit.setActive(false).setVisible(false).destroy();
                     ghostHit.play('poof', true);
-                    // this.score = this.score + 10;
-                    // console.log(this.score);
-                    // this.scoreText.setText(`SCORE: ${score}`);
                     ghostHit.on('animationcomplete', () => {
                         ghostHit.setActive(false).setVisible(false).destroy();
-                    });
-                });       
-            }          
+                    });    
+                });
+                       
+            }    
         }; //SPACEBAR
+        
 
 
 
