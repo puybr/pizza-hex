@@ -136,10 +136,12 @@ class GameScene extends Phaser.Scene {
         this.physics.add.collider(this.witch, this.ghostGroup, (witch, ghost) => {
             this.gameOver = true;
             this.anims.pauseAll();
-            const ko = this.add.text(400, 220, '<SHIFT> to restart',
-            { color: '#FFF047', fontSize: 60, fontFamily: 'Minecraft' }).setOrigin(0.5, 0).setDepth(2);
-            ko.setInteractive({useHandCursor: true});
-            ko.on('pointerdown', () => this.scene.restart());
+            const gameOver = this.add.text(400, 185, 'GAME OVER',
+            { color: '#FFF047', fontSize: 100, fontFamily: 'Minecraft' }).setOrigin(0.5, 0).setDepth(2);
+            const shift = this.add.text(400, 410, 'Hold <SHIFT> to Restart',
+            { color: '#FFF047', fontSize: 40, fontFamily: 'Minecraft' }).setOrigin(0.5, 0).setDepth(2);
+            gameOver.setInteractive({useHandCursor: true});
+            gameOver.on('pointerdown', () => this.scene.restart());
             if (this.cursors.shift.isDown) {
                 this.registry.destroy(); // destroy registry
                 this.events.off(); // disable all active events
