@@ -25,4 +25,4 @@ Play the [Demo here](https://ghost-goblin.github.io/pizza-hex/)
 ***
 
 - Artwork by [Elliott Van Tonder](https://www.behance.net/elliebeans6c58)
-- Listen to the 🎵🎵🎵 [Official Sountrack](https://soundcloud.com/ghost_goblin/pizza-hex) 🎵🎵🎵
+- Listen to the 🎵🎵🎵[Official Sountrack](https://soundcloud.com/ghost_goblin/pizza-hex)🎵🎵🎵
