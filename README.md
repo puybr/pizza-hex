@@ -1,4 +1,5 @@
 <div align="center">
+
 # 🍕🧙‍♀️ Pizza Hex
 
 ![Pizza Hex Title](assets/title.png)
@@ -12,4 +13,5 @@
 Press the up and down keys, and space to fire!
 
 Artwork by [Elliott](https://www.behance.net/elliebeans6c58)
+
 </div>
