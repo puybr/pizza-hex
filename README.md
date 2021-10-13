@@ -15,7 +15,7 @@ Play the [Demo here](https://ghost-goblin.github.io/pizza-hex/)
 
 </div>
 
-### 🧙‍♀️ How to Play?
+# 🧙‍♀️ How to Play?
 
 + Hit the &#129045; and &#129047; keys to fly up and down 🧹
 + <SPACEBAR> to conjure **Pizzamancy** and fire your pizza spells 🍕
