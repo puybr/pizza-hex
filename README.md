@@ -18,8 +18,8 @@ Play the [Demo here](https://ghost-goblin.github.io/pizza-hex/)
 # 🧙‍♀️ How to Play?
 
 + Hit the &#129045; and &#129047; keys to fly up and down 🧹
-+ <SPACEBAR> to conjure **Pizzamancy** and fire your pizza spells 🍕
-+ <SHIFT> to restart the game 🕹️
++ **SPACEBAR** to conjure **Pizzamancy** and fire your pizza spells 🍕
++ **SHIFT** to restart the game 🕹️
 + Do **NOT** get hit by the goblins or you're dead! ☠️
 
 ***
