@@ -32,7 +32,7 @@ class TitleScene extends Phaser.Scene {
         { color: '#380073',fontSize: 30, fontFamily: 'Minecraft' }).setOrigin(0.5, 0);
         this.add.text(400, 300, 'Press <SPACEBAR> to Start',
         { color: '#380073',fontSize: 38, fontFamily: 'Minecraft' }).setOrigin(0.5, 0);
-        this.add.text(400, 400, 'Press the <UP> and <DOWN> to Fly',
+        this.add.text(400, 400, 'Press <UP> & <DOWN> to Fly',
         { color: '#380073',fontSize: 18, fontFamily: 'Minecraft' }).setOrigin(0.5, 0);
         this.add.text(400, 425, '<SPACEBAR> to Cast Spells',
         { color: '#380073',fontSize: 18, fontFamily: 'Minecraft' }).setOrigin(0.5, 0);
