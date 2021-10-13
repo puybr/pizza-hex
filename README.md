@@ -2,7 +2,6 @@
 
 # 🍕🧙‍♀️ Pizza Hex
 
-***
 ![Pizza Hex Title](assets/title.png)
 ***
 
