@@ -1,11 +1,14 @@
+// Globals
+let score = 0;
+let scoreText;
+
 class GameScene extends Phaser.Scene {
 
     constructor() {
-        super({key: 'gameScene'});
+        super({key: 'gameScene'});       
     }
 
     preload() {
-
         this.load.spritesheet('pizza', 'assets/pizza.png', {frameWidth: 100, frameHeight: 100});
         this.load.spritesheet('witch', 'assets/witch.png', {frameWidth: 200, frameHeight: 200});
         this.load.spritesheet('ghost', 'assets/ghost.png', {frameWidth: 150, frameHeight: 150});
@@ -14,8 +17,7 @@ class GameScene extends Phaser.Scene {
         this.load.audio('spell-audio', ['assets/Legowelt Percussion Synth 50.wav']);
     }
 
-    create() {
-        
+    create() {       
         this.gameOver = false;
         this.cursors = this.input.keyboard.createCursorKeys();
         this.lastFired = 0;
@@ -64,7 +66,6 @@ class GameScene extends Phaser.Scene {
             active: false
         });
 
-
         this.time.addEvent({
             delay: 300,
             loop: true,
@@ -82,8 +83,6 @@ class GameScene extends Phaser.Scene {
                     .body.setSize(100, 60, true);
             }
         });
-
-
 
         // 🍕 Add some pizza ...       
         let Spell = new Phaser.Class({
@@ -147,7 +146,8 @@ class GameScene extends Phaser.Scene {
                 this.scene.restart();  // restart current scene
             }
         });
-    
+        scoreText = this.add.text(400, 10, `SCORE: ${score}`,
+        { color: '#FFF047', fontSize: 25, fontFamily: 'Minecraft' }).setOrigin(0.5, 0).setDepth(2);
                    
         }// end create
 
@@ -155,11 +155,8 @@ class GameScene extends Phaser.Scene {
 
 
     update() {
-        let score = 0;
-        const scoreText = this.add.text(400, 10, `SCORE: ${score}`,
-        { color: '#FFF047', fontSize: 25, fontFamily: 'Minecraft' }).setOrigin(0.5, 0).setDepth(2);
-        // Game Over ... you're dead!
         if (this.gameOver) {
+            score  = 0;
             return;
         }
         this.cloudParallax.tilePositionX += 0.4;
@@ -195,13 +192,14 @@ class GameScene extends Phaser.Scene {
             });
             const slice = this.pizzaGroup.get(); // 🍕 Fire some pizza ...              
             if (slice) {
-
                 slice.add
                 slice.fire(this.witch.x, this.witch.y);
                 this.lastFired = this.time.now + 200; //fire delay
                 this.sound.add("spell-audio", { loop: false, volume: 0.2 }).play(); // HIT SOUND
                 this.physics.add.collider(this.ghostGroup, slice, (ghostHit, pizzaHit) => {
-                    // 💥
+                    // 🍕💥👻
+                    score += 10;
+                    scoreText.setText(`SCORE: ${score}`);
                     pizzaHit.setActive(false).setVisible(false).destroy();
                     ghostHit.play('poof', true);
                     ghostHit.on('animationcomplete', () => {
@@ -210,13 +208,10 @@ class GameScene extends Phaser.Scene {
                 });
                        
             }    
-        }; //SPACEBAR
-        
-
-
-
+        }; //end SPACEBAR
      
     }
+
 }
 
 export default GameScene;

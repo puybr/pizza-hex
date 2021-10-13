@@ -53,13 +53,13 @@ class TitleScene extends Phaser.Scene {
             this.sound.on('unlocked', () => {
                 this.intro.play();
             })
-        };
-        
+        };        
     }
+    
     clickButton() {
         this.scene.switch('gameScene');
-
     }
+
     loadFont(name, url) {
         const newFont = new FontFace('Minecraft', 'url(assets/Minecraft.ttf)');
         newFont.load().then(function (loaded) {
@@ -68,6 +68,7 @@ class TitleScene extends Phaser.Scene {
             return error;
         });
     }
+    
 
     update() {
         this.cloudParallax.tilePositionX += 0.2;
