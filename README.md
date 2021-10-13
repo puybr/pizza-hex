@@ -2,7 +2,9 @@
 
 # 🍕🧙‍♀️ Pizza Hex
 
+***
 ![Pizza Hex Title](assets/title.png)
+***
 
 #### A 16-bit Shoot ‘em Up arcade game made with the Phaser JavaScript Framework
 
