@@ -10,9 +10,12 @@ Play the [Demo here](https://ghost-goblin.github.io/pizza-hex/)
 
 ***
 
-### 🧙‍♀️ How to Play?
 
 ![Pizza Hex Demo](pizza-hex.gif)
+
+</div>
+
+### 🧙‍♀️ How to Play?
 
 + Hit the &#129045; and &#129047; keys to fly up and down 🧹
 + <SPACEBAR> to conjure **Pizzamancy** and fire your pizza spells 🍕
@@ -23,5 +26,3 @@ Play the [Demo here](https://ghost-goblin.github.io/pizza-hex/)
 
 - Artwork by [Elliott Van Tonder](https://www.behance.net/elliebeans6c58)
 - Listen to the 🎵🎵🎵 [Official Sountrack](https://soundcloud.com/ghost_goblin/pizza-hex) 🎵🎵🎵
-
-</div>
