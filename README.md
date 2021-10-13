@@ -1,10 +1,10 @@
 # Pizza Hex
-🍕🧙‍♀️ 
+![Pizza Hex Title](assets/title.png)
 ## A 16-bit Shoot ‘em Up arcade game made with the Phaser JavaScript Framework
 
 ### How to Play?
 
-![Pizza hex](pizza-hex.gif)
+![Pizza Hex Demo](pizza-hex.gif)
 
 Press the up and down keys, and space to fire!
 
