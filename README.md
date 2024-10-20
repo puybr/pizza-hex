@@ -6,7 +6,7 @@
 
 #### A 16-bit Shoot ‘em Up arcade game made with the Phaser JavaScript Framework
 
-Play the [Demo here](https://ghost-goblin.github.io/pizza-hex/)
+Play the [Demo here](https://puybr.github.io/pizza-hex/)
 
 ***
 
