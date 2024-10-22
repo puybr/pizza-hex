@@ -24,4 +24,4 @@ Play the [Demo here](https://puybr.github.io/pizza-hex/)
 
 ***
 
-- ✏️ Artwork by [Elliott Van Tonder](https://www.behance.net/elliebeans6c58)
+✏️ Artwork by [Elliott Van Tonder](https://www.behance.net/elliebeans6c58)
