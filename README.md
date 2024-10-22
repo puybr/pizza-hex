@@ -24,5 +24,4 @@ Play the [Demo here](https://puybr.github.io/pizza-hex/)
 
 ***
 
-- Artwork by [Elliott Van Tonder](https://www.behance.net/elliebeans6c58)
-- Listen to the 🎵🎵🎵[Official Soundtrack](https://soundcloud.com/djspoook/pizza-hex)🎵🎵🎵
+- ✏️ Artwork by [Elliott Van Tonder](https://www.behance.net/elliebeans6c58)
