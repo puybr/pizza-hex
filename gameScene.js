@@ -8,7 +8,7 @@ class GameScene extends Phaser.Scene {
 
     constructor() {
         super({key: 'gameScene'});       
-    }
+    };
 
     preload() {
         this.load.spritesheet('pizza', 'assets/pizza.png', {frameWidth: 100, frameHeight: 100});
@@ -17,7 +17,7 @@ class GameScene extends Phaser.Scene {
         this.load.image('clouds', 'assets/clouds2.png');
         this.load.image('background', 'assets/background.png');
         this.load.audio('spell-audio', ['assets/Legowelt Percussion Synth 50.wav']);
-    }
+    };
 
     create() {       
         this.gameOver = false;
@@ -83,7 +83,7 @@ class GameScene extends Phaser.Scene {
                     .setVisible(true)
                     .play('spook')
                     .body.setSize(100, 60, true);
-            }
+            };
         });
 
         // 🍕 Add some pizza ...       
@@ -100,8 +100,7 @@ class GameScene extends Phaser.Scene {
                 this.setPosition(x + 50, y); 
                 this.setActive(true);
                 this.setVisible(true);
-                this.body.setSize(20, 20, true);
-                
+                this.body.setSize(20, 20, true);             
             },
     
             update: function (time, delta) {
@@ -109,12 +108,9 @@ class GameScene extends Phaser.Scene {
                 if (this.x > 800) {
                     this.setActive(false);
                     this.setVisible(false);
-                    this.destroy();
-                    
-                }
-                
-            }, 
-    
+                    this.destroy();                  
+                };              
+            };    
         });
     
         this.pizzaGroup = this.physics.add.group({
@@ -148,27 +144,23 @@ class GameScene extends Phaser.Scene {
                 this.registry.destroy(); // destroy registry
                 this.events.off(); // disable all active events
                 this.scene.restart();  // restart current scene
-            }
+            };
         });
         scoreText = this.add.text(400, 10, `SCORE: ${score}`,
-        { color: '#FFF047', fontSize: 25, fontFamily: 'Minecraft' }).setOrigin(0.5, 0).setDepth(2);
-                   
+        { color: '#FFF047', fontSize: 25, fontFamily: 'Minecraft' }).setOrigin(0.5, 0).setDepth(2);                 
         }// end create
-
-
-
 
     update() {
         if (this.gameOver) {
             score  = 0;
             return;
-        }
+        };
         this.cloudParallax.tilePositionX += 0.4;
         Phaser.Actions.IncX(this.ghostGroup.getChildren(), -3);
         this.ghostGroup.getChildren().forEach(ghost => {
             if (ghost.active && ghost.x < -100) {
                 this.ghostGroup.killAndHide(ghost);
-            }
+            };
         });
   
         if (this.cursors.up.isDown && this.witch.y > 50) {
@@ -177,16 +169,15 @@ class GameScene extends Phaser.Scene {
             this.witch.on('animationcomplete', () => {
                 this.witch.play('fly', true);
             });
-        }
+        };
         if (this.cursors.down.isDown && this.witch.y < 450) {
             this.witch.y += 4;
             this.witch.play('down', true);
             this.witch.on('animationcomplete', () => {
                 this.witch.play('fly', true);
             });
-        }
+        };
         
-
         // SPACEBAR 
         if (this.cursors.space.isDown) {
             if (this.time.now < this.lastFired) { return; } //Shot Spawn Delay
@@ -209,13 +200,10 @@ class GameScene extends Phaser.Scene {
                     ghostHit.on('animationcomplete', () => {
                         ghostHit.setActive(false).setVisible(false).destroy();
                     });    
-                });
-                       
-            }    
-        }; //end SPACEBAR
-     
-    }
-
-}
+                });                      
+            };   
+        }; //end SPACEBAR     
+    };
+};
 
 export default GameScene;
