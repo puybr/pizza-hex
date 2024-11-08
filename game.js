@@ -1,3 +1,5 @@
+"use strict";
+
 import TitleScene from './titleScene.js';
 import GameScene from './gameScene.js';
 
