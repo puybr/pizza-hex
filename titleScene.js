@@ -1,10 +1,11 @@
-class TitleScene extends Phaser.Scene {
+"use strict";
 
+class TitleScene extends Phaser.Scene {
     constructor() {
         super({
             key: 'titleScene'
         });
-    }
+    };
 
     preload() {
         this.load.image('mushroom-0', 'assets/mush-0.png');
@@ -15,7 +16,7 @@ class TitleScene extends Phaser.Scene {
         this.load.spritesheet('pizza', 'assets/pizza.png', {frameWidth: 100, frameHeight: 100});
         this.load.audio('intro', ['assets/intro.wav']);
         this.loadFont('Minecraft', 'assets/Minecraft.ttf');
-    }
+    };
 
     create() {
         this.anims.create({
@@ -54,11 +55,11 @@ class TitleScene extends Phaser.Scene {
                 this.intro.play();
             })
         };        
-    }
+    };
 
     clickButton() {
         this.scene.switch('gameScene');
-    }
+    };
 
     loadFont(name, url) {
         const newFont = new FontFace('Minecraft', 'url(assets/Minecraft.ttf)');
@@ -67,17 +68,15 @@ class TitleScene extends Phaser.Scene {
         }).catch(function (error) {
             return error;
         });
-    }
+    };
     
 
     update() {
         this.cloudParallax.tilePositionX += 0.2;
         if (this.cursors.space.isDown) {
             this.scene.switch('gameScene');
-        }
-        
-    }
-
-}
+        };       
+    };
+};
 
 export default TitleScene;
