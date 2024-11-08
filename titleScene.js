@@ -53,7 +53,7 @@ class TitleScene extends Phaser.Scene {
         } else {
             this.sound.on('unlocked', () => {
                 this.intro.play();
-            })
+            });
         };        
     };
 
