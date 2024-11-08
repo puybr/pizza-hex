@@ -1,3 +1,5 @@
+"use strict";
+
 // Globals
 let score = 0;
 let scoreText;
