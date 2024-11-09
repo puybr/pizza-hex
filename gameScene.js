@@ -110,7 +110,7 @@ class GameScene extends Phaser.Scene {
                     this.setVisible(false);
                     this.destroy();                  
                 };              
-            };    
+            }  
         })
     
         this.pizzaGroup = this.physics.add.group({
