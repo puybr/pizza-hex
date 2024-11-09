@@ -111,14 +111,14 @@ class GameScene extends Phaser.Scene {
                     this.destroy();                  
                 };              
             };    
-        });
+        })
     
         this.pizzaGroup = this.physics.add.group({
             defaultKey: 'pizza',
             classType: Spell,
             maxSize: 50,
             runChildUpdate: true
-        });
+        })
 
         // 🧙‍♀️ Add the witch
         this.witch = this.physics.add.sprite(160, 250, 'witch').setDepth(1);
@@ -127,8 +127,8 @@ class GameScene extends Phaser.Scene {
         this.physics.world.enable(this.witch);
         this.witch.play('fly', true);      
         this.speed = Phaser.Math.GetSpeed(200, 1);
-        this.add.image(400, 250, 'background');
-        this.cloudParallax = this.add.tileSprite(0, 400, 1600, 800, 'clouds');
+        this.add.image(400, 250, 'background')
+        this.cloudParallax = this.add.tileSprite(0, 400, 1600, 800, 'clouds')
 
         // 🧙‍♀️👻 Collision   
         this.physics.add.collider(this.witch, this.ghostGroup, (witch, ghost) => {
