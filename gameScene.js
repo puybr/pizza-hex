@@ -82,7 +82,7 @@ class GameScene extends Phaser.Scene {
                     .setActive(true)
                     .setVisible(true)
                     .play('spook')
-                    .body.setSize(100, 60, true);
+                    .body.setSize(100, 60, true)
             };
         });
 
