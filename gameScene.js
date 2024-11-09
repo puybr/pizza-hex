@@ -83,8 +83,8 @@ class GameScene extends Phaser.Scene {
                     .setVisible(true)
                     .play('spook')
                     .body.setSize(100, 60, true)
-            };
-        });
+            }
+        })
 
         // 🍕 Add some pizza ...       
         let Spell = new Phaser.Class({
